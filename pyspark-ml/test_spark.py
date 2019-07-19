@@ -3,14 +3,14 @@ import os
 import sys
  
 #下面这些目录都是你自己机器的Spark安装目录和Java安装目录
-os.environ['SPARK_HOME'] = "/Users/qudian/spark-2.4.3-bin-hadoop2.7/"
+os.environ['SPARK_HOME'] = "/Users/***/spark-2.4.3-bin-hadoop2.7/"
  
-sys.path.append("/Users/qudian/spark-2.4.3-bin-hadoop2.7/bin")
-sys.path.append("/Users/qudian/spark-2.4.3-bin-hadoop2.7/python")
-sys.path.append("/Users/qudian/spark-2.4.3-bin-hadoop2.7/python/pyspark")
-sys.path.append("/Users/qudian/spark-2.4.3-bin-hadoop2.7/python/lib")
-sys.path.append("/Users/qudian/spark-2.4.3-bin-hadoop2.7/python/lib/pyspark.zip")
-sys.path.append("/Users/qudian/spark-2.4.3-bin-hadoop2.7/lib/py4j-0.9-src.zip")
+sys.path.append("/Users/***/spark-2.4.3-bin-hadoop2.7/bin")
+sys.path.append("/Users/***/spark-2.4.3-bin-hadoop2.7/python")
+sys.path.append("/Users/***/spark-2.4.3-bin-hadoop2.7/python/pyspark")
+sys.path.append("/Users/***/spark-2.4.3-bin-hadoop2.7/python/lib")
+sys.path.append("/Users/***/spark-2.4.3-bin-hadoop2.7/python/lib/pyspark.zip")
+sys.path.append("/Users/***/spark-2.4.3-bin-hadoop2.7/lib/py4j-0.9-src.zip")
 # sys.path.append("/Library/Java/JavaVirtualMachines/jdk1.8.0_144.jdk/Contents/Home")
 os.environ['JAVA_HOME'] = "/Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home"
  
