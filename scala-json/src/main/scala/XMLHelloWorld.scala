@@ -11,6 +11,16 @@ object XMLHelloWorld {
       //      case other => "Unknow data structure : " + other
       }
 
+    // 解析List
+    def regList(tmp:Option[Any]) = tmp match {
+        case Some( list: List[String] ) => list
+    }
+
+    // 解析String
+    def regString(tmp:Option[Any]) = tmp match {
+        case Some( str: String ) => str
+    }
+
 
     var tt =  Map.empty[String, Any] 
 
@@ -18,11 +28,14 @@ object XMLHelloWorld {
     
     val first = regJson(tree)
     println(first.get("experiment_name"))
+    println( regString( first.get("experiment_name") ) )
 
     val dev = first.get("model_monitor")
-    println(dev)
+    println( dev )
     val sec = regJson(dev)
     println( sec.get("evaluator") )
+    val evList = regList( sec.get("evaluator") )
+    println( enList )
 
 
     //tt = tree match {
@@ -58,4 +71,3 @@ object XMLHelloWorld {
     }
 }
 */
-
