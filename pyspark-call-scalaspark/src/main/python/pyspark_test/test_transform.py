@@ -31,6 +31,7 @@ from pyspark import SparkConf, SparkContext
 conf = SparkConf().setMaster("local[2]").setAppName("My App").set("spark.jars", "/home/rd/machinelp/test_example/qdspark-1.0.0-jar-with-dependencies.jar")
 sc = SparkContext(conf = conf)
 spark = SparkSession.builder.appName('CalculatingGeoDistances').getOrCreate()
+sqlContext = SQLContext(sparkContext=sc)
 
 from pyspark.sql.types import *
 
@@ -50,7 +51,8 @@ import time
 start_time = time.time()
 h = sc._jvm.com.qudian.qdspark.test.model.TestPysparkTransform("./model")
 df_res = h.test( df_raw )
-print (">>>>", type( df_res ) )
-# 转pyspark dataframe
+# 两种方式 转pyspark dataframe
 print ( "res:", DataFrame( df_res, dataset.sql_ctx).toPandas() )
+print ( "res:", DataFrame( df_res, sqlContext).toPandas() )
+print (">>>>", type( df_res ) )
 print ("time:", time.time()- start_time)
