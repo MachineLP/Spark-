@@ -18,9 +18,9 @@ class TestPysparkTransform(pipelineModelPath:String){
 
   val model2 = PipelineModel.load(pipelineModelPath)
 
-  def test(inputDF:DataFrame): Unit = {
+  def test(inputDF:DataFrame): DataFrame = {
 
-    model2.transform(inputDF).show(false)
+    model2.transform(inputDF)
 
   }
 }
