@@ -56,3 +56,10 @@ print ( "res:", DataFrame( df_res, dataset.sql_ctx).toPandas() )
 print ( "res:", DataFrame( df_res, sqlContext).toPandas() )
 print (">>>>", type( df_res ) )
 print ("time:", time.time()- start_time)
+
+'''  json转df
+newJson = '{"Name":"something","Url":"https://stackoverflow.com","Author":"jangcy","BlogEntries":100,"Caller":"jangcy"}'
+df = spark.read.json(sc.parallelize([newJson]))
+df.show(truncate=False)
+df = df._jdf
+'''
