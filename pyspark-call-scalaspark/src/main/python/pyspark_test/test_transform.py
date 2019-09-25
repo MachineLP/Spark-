@@ -25,6 +25,7 @@ sys.path.append("/di_software/emr-package/spark-2.4.3-bin-hadoop2.7/lib/py4j-0.9
 # sys.path.append("/Library/Java/JavaVirtualMachines/jdk1.8.0_144.jdk/Contents/Home")
 os.environ['JAVA_HOME'] = "/usr/lib/jdk1.8.0_171"
 
+from pyspark.sql import DataFrame
 from pyspark.sql import SparkSession, SQLContext
 from pyspark import SparkConf, SparkContext
 conf = SparkConf().setMaster("local[2]").setAppName("My App").set("spark.jars", "/home/rd/machinelp/test_example/qdspark-1.0.0-jar-with-dependencies.jar")
@@ -41,8 +42,15 @@ schema = StructType(
     StructField("class", StringType()),
   ])
 
-df_raw = spark.read.option("header", "true").schema(schema).csv("/tmp/rd/lp/iris.data")._jdf
+dataset = spark.read.option("header", "true").schema(schema).csv("/tmp/rd/lp/iris.data")
+df_raw = dataset._jdf
 
-
+print ( ">>>>", df_raw )
+import time
+start_time = time.time()
 h = sc._jvm.com.qudian.qdspark.test.model.TestPysparkTransform("./model")
-h.test( df_raw ) 
+df_res = h.test( df_raw )
+print (">>>>", type( df_res ) )
+# 转pyspark dataframe
+print ( "res:", DataFrame( df_res, dataset.sql_ctx).toPandas() )
+print ("time:", time.time()- start_time)
