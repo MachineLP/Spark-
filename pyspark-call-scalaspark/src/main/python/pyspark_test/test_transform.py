@@ -12,7 +12,7 @@
 
 import os
 import sys
-
+import numpy as np
 #下面这些目录都是你自己机器的Spark安装目录和Java安装目录
 os.environ['SPARK_HOME']="/di_software/emr-package/spark-2.4.3-bin-hadoop2.7"
 
@@ -35,6 +35,11 @@ sqlContext = SQLContext(sparkContext=sc)
 
 from pyspark.sql.types import *
 
+def pandas_df2arr(pandas_df, loc_name = 'prediction'):
+    return np.array( [ np.array ( per_pd ) for per_pd in pandas_df[ loc_name ].values ] )
+
+
+
 schema = StructType(
   [StructField("sepal length", DoubleType()),
     StructField("sepal width", DoubleType()),
@@ -51,9 +56,14 @@ import time
 start_time = time.time()
 h = sc._jvm.com.qudian.qdspark.test.model.TestPysparkTransform("./model")
 df_res = h.test( df_raw )
+# df_res.show()
 # 两种方式 转pyspark dataframe
-print ( "res:", DataFrame( df_res, dataset.sql_ctx).toPandas() )
-print ( "res:", DataFrame( df_res, sqlContext).toPandas() )
+data_pandas = DataFrame( df_res, dataset.sql_ctx).select("prediction").toPandas()
+print ( "res:", data_pandas)
+data_pandas = DataFrame( df_res, sqlContext).toPandas()
+print ( "res:", data_pandas )
+print ("res np:", pandas_df2arr(data_pandas) )
+
 print (">>>>", type( df_res ) )
 print ("time:", time.time()- start_time)
 
