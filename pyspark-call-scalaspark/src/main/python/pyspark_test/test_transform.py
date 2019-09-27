@@ -12,6 +12,8 @@
 
 import os
 import sys
+import json
+import pandas as pd
 import numpy as np
 #下面这些目录都是你自己机器的Spark安装目录和Java安装目录
 os.environ['SPARK_HOME']="/di_software/emr-package/spark-2.4.3-bin-hadoop2.7"
@@ -69,7 +71,10 @@ print ("time:", time.time()- start_time)
 
 '''  json转df
 newJson = '{"Name":"something","Url":"https://stackoverflow.com","Author":"jangcy","BlogEntries":100,"Caller":"jangcy"}'
-df = spark.read.json(sc.parallelize([newJson]))
+# df = spark.read.json(sc.parallelize([newJson]))
+json_data = json.loads( newJson )
+pandas_df = pd.DataFrame([json_data])
+df = spark.createDataFrame(pandas_df)
 df.show(truncate=False)
 df = df._jdf
 '''
