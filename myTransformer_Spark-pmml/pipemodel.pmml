@@ -1,0 +1,2291 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<PMML xmlns="http://www.dmg.org/PMML-4_3" xmlns:data="http://jpmml.org/jpmml-model/InlineTable" version="4.3">
+    <Header>
+        <Application name="JPMML-SparkML" version="1.5.4"/>
+        <Timestamp>2019-08-31T07:32:07Z</Timestamp>
+    </Header>
+    <DataDictionary>
+        <DataField name="sepal_length" optype="continuous" dataType="double"/>
+        <DataField name="sepal_width" optype="continuous" dataType="double"/>
+        <DataField name="petal_length" optype="continuous" dataType="double"/>
+        <DataField name="petal_width" optype="continuous" dataType="double"/>
+        <DataField name="label" optype="categorical" dataType="double">
+            <Value value="0"/>
+            <Value value="1"/>
+            <Value value="2"/>
+        </DataField>
+    </DataDictionary>
+    <MiningModel functionName="classification">
+        <MiningSchema>
+            <MiningField name="label" usageType="target"/>
+            <MiningField name="sepal_length"/>
+            <MiningField name="sepal_width"/>
+            <MiningField name="petal_length"/>
+            <MiningField name="petal_width"/>
+        </MiningSchema>
+        <Output>
+            <OutputField name="pmml(prediction)" optype="categorical" dataType="double" isFinalResult="false"/>
+            <OutputField name="prediction" optype="continuous" dataType="double" feature="transformedValue">
+                <MapValues outputColumn="data:output" dataType="double">
+                    <FieldColumnPair field="pmml(prediction)" column="data:input"/>
+                    <InlineTable>
+                        <row>
+                            <data:input>0</data:input>
+                            <data:output>0</data:output>
+                        </row>
+                        <row>
+                            <data:input>1</data:input>
+                            <data:output>1</data:output>
+                        </row>
+                        <row>
+                            <data:input>2</data:input>
+                            <data:output>2</data:output>
+                        </row>
+                    </InlineTable>
+                </MapValues>
+            </OutputField>
+            <OutputField name="probability(0)" optype="continuous" dataType="double" feature="probability" value="0"/>
+            <OutputField name="probability(1)" optype="continuous" dataType="double" feature="probability" value="1"/>
+            <OutputField name="probability(2)" optype="continuous" dataType="double" feature="probability" value="2"/>
+        </Output>
+        <Segmentation multipleModelMethod="average">
+            <Segment id="1">
+                <True/>
+                <TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+                    <MiningSchema>
+                        <MiningField name="sepal_length"/>
+                        <MiningField name="sepal_width"/>
+                        <MiningField name="petal_length"/>
+                        <MiningField name="petal_width"/>
+                    </MiningSchema>
+                    <Node>
+                        <True/>
+                        <Node score="0" recordCount="47">
+                            <SimplePredicate field="petal_width" operator="lessOrEqual" value="0.45"/>
+                            <ScoreDistribution value="0" recordCount="47.0"/>
+                            <ScoreDistribution value="1" recordCount="0.0"/>
+                            <ScoreDistribution value="2" recordCount="0.0"/>
+                        </Node>
+                        <Node>
+                            <SimplePredicate field="petal_length" operator="lessOrEqual" value="4.95"/>
+                            <Node score="1" recordCount="43">
+<SimplePredicate field="petal_width" operator="lessOrEqual" value="1.65"/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="43.0"/>
+<ScoreDistribution value="2" recordCount="0.0"/>
+                            </Node>
+                            <Node>
+<SimplePredicate field="sepal_length" operator="lessOrEqual" value="5.95"/>
+<Node score="2" recordCount="3">
+    <SimplePredicate field="sepal_length" operator="lessOrEqual" value="5.65"/>
+    <ScoreDistribution value="0" recordCount="0.0"/>
+    <ScoreDistribution value="1" recordCount="0.0"/>
+    <ScoreDistribution value="2" recordCount="3.0"/>
+</Node>
+<Node score="1" recordCount="1">
+    <True/>
+    <ScoreDistribution value="0" recordCount="0.0"/>
+    <ScoreDistribution value="1" recordCount="1.0"/>
+    <ScoreDistribution value="2" recordCount="0.0"/>
+</Node>
+                            </Node>
+                            <Node score="2" recordCount="4">
+<True/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="0.0"/>
+<ScoreDistribution value="2" recordCount="4.0"/>
+                            </Node>
+                        </Node>
+                        <Node>
+                            <SimplePredicate field="petal_width" operator="lessOrEqual" value="1.75"/>
+                            <Node score="2" recordCount="5">
+<SimplePredicate field="sepal_width" operator="lessOrEqual" value="2.6500000000000004"/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="0.0"/>
+<ScoreDistribution value="2" recordCount="5.0"/>
+                            </Node>
+                            <Node score="2" recordCount="2">
+<SimplePredicate field="petal_width" operator="lessOrEqual" value="1.55"/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="0.0"/>
+<ScoreDistribution value="2" recordCount="2.0"/>
+                            </Node>
+                            <Node score="1" recordCount="2">
+<SimplePredicate field="petal_length" operator="lessOrEqual" value="5.15"/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="2.0"/>
+<ScoreDistribution value="2" recordCount="0.0"/>
+                            </Node>
+                            <Node score="2" recordCount="1">
+<True/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="0.0"/>
+<ScoreDistribution value="2" recordCount="1.0"/>
+                            </Node>
+                        </Node>
+                        <Node score="2" recordCount="31">
+                            <True/>
+                            <ScoreDistribution value="0" recordCount="0.0"/>
+                            <ScoreDistribution value="1" recordCount="0.0"/>
+                            <ScoreDistribution value="2" recordCount="31.0"/>
+                        </Node>
+                    </Node>
+                </TreeModel>
+            </Segment>
+            <Segment id="2">
+                <True/>
+                <TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+                    <MiningSchema>
+                        <MiningField name="sepal_length"/>
+                        <MiningField name="petal_length"/>
+                        <MiningField name="petal_width"/>
+                    </MiningSchema>
+                    <Node>
+                        <True/>
+                        <Node score="0" recordCount="58">
+                            <SimplePredicate field="petal_length" operator="lessOrEqual" value="2.45"/>
+                            <ScoreDistribution value="0" recordCount="58.0"/>
+                            <ScoreDistribution value="1" recordCount="0.0"/>
+                            <ScoreDistribution value="2" recordCount="0.0"/>
+                        </Node>
+                        <Node>
+                            <SimplePredicate field="petal_length" operator="lessOrEqual" value="5.05"/>
+                            <Node>
+<SimplePredicate field="sepal_length" operator="lessOrEqual" value="6.35"/>
+<Node score="1" recordCount="41">
+    <SimplePredicate field="petal_width" operator="lessOrEqual" value="1.55"/>
+    <ScoreDistribution value="0" recordCount="0.0"/>
+    <ScoreDistribution value="1" recordCount="41.0"/>
+    <ScoreDistribution value="2" recordCount="0.0"/>
+</Node>
+<Node>
+    <SimplePredicate field="sepal_length" operator="lessOrEqual" value="5.95"/>
+    <Node>
+        <SimplePredicate field="petal_length" operator="lessOrEqual" value="4.85"/>
+        <Node score="2" recordCount="1">
+            <SimplePredicate field="sepal_length" operator="lessOrEqual" value="4.95"/>
+            <ScoreDistribution value="0" recordCount="0.0"/>
+            <ScoreDistribution value="1" recordCount="0.0"/>
+            <ScoreDistribution value="2" recordCount="1.0"/>
+        </Node>
+        <Node score="1" recordCount="1">
+            <True/>
+            <ScoreDistribution value="0" recordCount="0.0"/>
+            <ScoreDistribution value="1" recordCount="1.0"/>
+            <ScoreDistribution value="2" recordCount="0.0"/>
+        </Node>
+    </Node>
+    <Node score="2" recordCount="2">
+        <True/>
+        <ScoreDistribution value="0" recordCount="0.0"/>
+        <ScoreDistribution value="1" recordCount="0.0"/>
+        <ScoreDistribution value="2" recordCount="2.0"/>
+    </Node>
+</Node>
+<Node score="2" recordCount="5">
+    <True/>
+    <ScoreDistribution value="0" recordCount="0.0"/>
+    <ScoreDistribution value="1" recordCount="0.0"/>
+    <ScoreDistribution value="2" recordCount="5.0"/>
+</Node>
+                            </Node>
+                            <Node score="1" recordCount="18">
+<True/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="18.0"/>
+<ScoreDistribution value="2" recordCount="0.0"/>
+                            </Node>
+                        </Node>
+                        <Node>
+                            <SimplePredicate field="petal_length" operator="lessOrEqual" value="5.15"/>
+                            <Node score="1" recordCount="1">
+<SimplePredicate field="petal_width" operator="lessOrEqual" value="1.65"/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="1.0"/>
+<ScoreDistribution value="2" recordCount="0.0"/>
+                            </Node>
+                            <Node score="2" recordCount="2">
+<True/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="0.0"/>
+<ScoreDistribution value="2" recordCount="2.0"/>
+                            </Node>
+                        </Node>
+                        <Node score="2" recordCount="40">
+                            <True/>
+                            <ScoreDistribution value="0" recordCount="0.0"/>
+                            <ScoreDistribution value="1" recordCount="0.0"/>
+                            <ScoreDistribution value="2" recordCount="40.0"/>
+                        </Node>
+                    </Node>
+                </TreeModel>
+            </Segment>
+            <Segment id="3">
+                <True/>
+                <TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+                    <MiningSchema>
+                        <MiningField name="sepal_length"/>
+                        <MiningField name="sepal_width"/>
+                        <MiningField name="petal_length"/>
+                        <MiningField name="petal_width"/>
+                    </MiningSchema>
+                    <Node>
+                        <True/>
+                        <Node score="0" recordCount="47">
+                            <SimplePredicate field="petal_length" operator="lessOrEqual" value="2.45"/>
+                            <ScoreDistribution value="0" recordCount="47.0"/>
+                            <ScoreDistribution value="1" recordCount="0.0"/>
+                            <ScoreDistribution value="2" recordCount="0.0"/>
+                        </Node>
+                        <Node score="1" recordCount="45">
+                            <SimplePredicate field="petal_length" operator="lessOrEqual" value="4.75"/>
+                            <ScoreDistribution value="0" recordCount="0.0"/>
+                            <ScoreDistribution value="1" recordCount="45.0"/>
+                            <ScoreDistribution value="2" recordCount="0.0"/>
+                        </Node>
+                        <Node>
+                            <SimplePredicate field="sepal_width" operator="lessOrEqual" value="2.75"/>
+                            <Node>
+<SimplePredicate field="petal_width" operator="lessOrEqual" value="1.65"/>
+<Node>
+    <SimplePredicate field="sepal_length" operator="lessOrEqual" value="6.05"/>
+    <Node score="2" recordCount="1">
+        <SimplePredicate field="petal_width" operator="lessOrEqual" value="1.55"/>
+        <ScoreDistribution value="0" recordCount="0.0"/>
+        <ScoreDistribution value="1" recordCount="0.0"/>
+        <ScoreDistribution value="2" recordCount="1.0"/>
+    </Node>
+    <Node score="1" recordCount="1">
+        <True/>
+        <ScoreDistribution value="0" recordCount="0.0"/>
+        <ScoreDistribution value="1" recordCount="1.0"/>
+        <ScoreDistribution value="2" recordCount="0.0"/>
+    </Node>
+</Node>
+<Node score="1" recordCount="1">
+    <True/>
+    <ScoreDistribution value="0" recordCount="0.0"/>
+    <ScoreDistribution value="1" recordCount="1.0"/>
+    <ScoreDistribution value="2" recordCount="0.0"/>
+</Node>
+                            </Node>
+                            <Node score="2" recordCount="5">
+<True/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="0.0"/>
+<ScoreDistribution value="2" recordCount="5.0"/>
+                            </Node>
+                        </Node>
+                        <Node score="2" recordCount="43">
+                            <True/>
+                            <ScoreDistribution value="0" recordCount="0.0"/>
+                            <ScoreDistribution value="1" recordCount="0.0"/>
+                            <ScoreDistribution value="2" recordCount="43.0"/>
+                        </Node>
+                    </Node>
+                </TreeModel>
+            </Segment>
+            <Segment id="4">
+                <True/>
+                <TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+                    <MiningSchema>
+                        <MiningField name="sepal_length"/>
+                        <MiningField name="petal_length"/>
+                        <MiningField name="petal_width"/>
+                    </MiningSchema>
+                    <Node>
+                        <True/>
+                        <Node>
+                            <SimplePredicate field="sepal_length" operator="lessOrEqual" value="5.55"/>
+                            <Node score="0" recordCount="46">
+<SimplePredicate field="petal_width" operator="lessOrEqual" value="0.8"/>
+<ScoreDistribution value="0" recordCount="46.0"/>
+<ScoreDistribution value="1" recordCount="0.0"/>
+<ScoreDistribution value="2" recordCount="0.0"/>
+                            </Node>
+                            <Node score="1" recordCount="5">
+<True/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="5.0"/>
+<ScoreDistribution value="2" recordCount="0.0"/>
+                            </Node>
+                        </Node>
+                        <Node>
+                            <SimplePredicate field="petal_length" operator="lessOrEqual" value="4.75"/>
+                            <Node score="0" recordCount="1">
+<SimplePredicate field="petal_width" operator="lessOrEqual" value="0.35"/>
+<ScoreDistribution value="0" recordCount="1.0"/>
+<ScoreDistribution value="1" recordCount="0.0"/>
+<ScoreDistribution value="2" recordCount="0.0"/>
+                            </Node>
+                            <Node score="1" recordCount="29">
+<True/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="29.0"/>
+<ScoreDistribution value="2" recordCount="0.0"/>
+                            </Node>
+                        </Node>
+                        <Node>
+                            <SimplePredicate field="petal_width" operator="lessOrEqual" value="1.55"/>
+                            <Node score="1" recordCount="2">
+<SimplePredicate field="petal_length" operator="lessOrEqual" value="4.95"/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="2.0"/>
+<ScoreDistribution value="2" recordCount="0.0"/>
+                            </Node>
+                            <Node score="2" recordCount="4">
+<True/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="0.0"/>
+<ScoreDistribution value="2" recordCount="4.0"/>
+                            </Node>
+                        </Node>
+                        <Node score="2" recordCount="38">
+                            <True/>
+                            <ScoreDistribution value="0" recordCount="0.0"/>
+                            <ScoreDistribution value="1" recordCount="0.0"/>
+                            <ScoreDistribution value="2" recordCount="38.0"/>
+                        </Node>
+                    </Node>
+                </TreeModel>
+            </Segment>
+            <Segment id="5">
+                <True/>
+                <TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+                    <MiningSchema>
+                        <MiningField name="sepal_length"/>
+                        <MiningField name="sepal_width"/>
+                        <MiningField name="petal_length"/>
+                        <MiningField name="petal_width"/>
+                    </MiningSchema>
+                    <Node>
+                        <True/>
+                        <Node score="0" recordCount="50">
+                            <SimplePredicate field="petal_width" operator="lessOrEqual" value="0.8"/>
+                            <ScoreDistribution value="0" recordCount="50.0"/>
+                            <ScoreDistribution value="1" recordCount="0.0"/>
+                            <ScoreDistribution value="2" recordCount="0.0"/>
+                        </Node>
+                        <Node>
+                            <SimplePredicate field="petal_length" operator="lessOrEqual" value="4.85"/>
+                            <Node score="1" recordCount="50">
+<SimplePredicate field="petal_width" operator="lessOrEqual" value="1.65"/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="50.0"/>
+<ScoreDistribution value="2" recordCount="0.0"/>
+                            </Node>
+                            <Node score="2" recordCount="3">
+<SimplePredicate field="sepal_width" operator="lessOrEqual" value="2.8499999999999996"/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="0.0"/>
+<ScoreDistribution value="2" recordCount="3.0"/>
+                            </Node>
+                            <Node score="1" recordCount="1">
+<True/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="1.0"/>
+<ScoreDistribution value="2" recordCount="0.0"/>
+                            </Node>
+                        </Node>
+                        <Node>
+                            <SimplePredicate field="petal_length" operator="lessOrEqual" value="5.05"/>
+                            <Node score="2" recordCount="9">
+<SimplePredicate field="sepal_length" operator="lessOrEqual" value="6.35"/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="0.0"/>
+<ScoreDistribution value="2" recordCount="9.0"/>
+                            </Node>
+                            <Node score="1" recordCount="5">
+<True/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="5.0"/>
+<ScoreDistribution value="2" recordCount="0.0"/>
+                            </Node>
+                        </Node>
+                        <Node score="2" recordCount="38">
+                            <True/>
+                            <ScoreDistribution value="0" recordCount="0.0"/>
+                            <ScoreDistribution value="1" recordCount="0.0"/>
+                            <ScoreDistribution value="2" recordCount="38.0"/>
+                        </Node>
+                    </Node>
+                </TreeModel>
+            </Segment>
+            <Segment id="6">
+                <True/>
+                <TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+                    <MiningSchema>
+                        <MiningField name="sepal_length"/>
+                        <MiningField name="petal_length"/>
+                        <MiningField name="petal_width"/>
+                    </MiningSchema>
+                    <Node>
+                        <True/>
+                        <Node>
+                            <SimplePredicate field="sepal_length" operator="lessOrEqual" value="5.45"/>
+                            <Node score="0" recordCount="45">
+<SimplePredicate field="petal_width" operator="lessOrEqual" value="0.8"/>
+<ScoreDistribution value="0" recordCount="45.0"/>
+<ScoreDistribution value="1" recordCount="0.0"/>
+<ScoreDistribution value="2" recordCount="0.0"/>
+                            </Node>
+                            <Node>
+<SimplePredicate field="sepal_length" operator="lessOrEqual" value="4.95"/>
+<Node score="1" recordCount="1">
+    <SimplePredicate field="petal_length" operator="lessOrEqual" value="3.4"/>
+    <ScoreDistribution value="0" recordCount="0.0"/>
+    <ScoreDistribution value="1" recordCount="1.0"/>
+    <ScoreDistribution value="2" recordCount="0.0"/>
+</Node>
+<Node score="2" recordCount="2">
+    <True/>
+    <ScoreDistribution value="0" recordCount="0.0"/>
+    <ScoreDistribution value="1" recordCount="0.0"/>
+    <ScoreDistribution value="2" recordCount="2.0"/>
+</Node>
+                            </Node>
+                            <Node score="1" recordCount="9">
+<True/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="9.0"/>
+<ScoreDistribution value="2" recordCount="0.0"/>
+                            </Node>
+                        </Node>
+                        <Node>
+                            <SimplePredicate field="petal_width" operator="lessOrEqual" value="1.75"/>
+                            <Node>
+<SimplePredicate field="petal_length" operator="lessOrEqual" value="4.95"/>
+<Node score="0" recordCount="5">
+    <SimplePredicate field="petal_width" operator="lessOrEqual" value="0.45"/>
+    <ScoreDistribution value="0" recordCount="5.0"/>
+    <ScoreDistribution value="1" recordCount="0.0"/>
+    <ScoreDistribution value="2" recordCount="0.0"/>
+</Node>
+<Node score="1" recordCount="41">
+    <True/>
+    <ScoreDistribution value="0" recordCount="0.0"/>
+    <ScoreDistribution value="1" recordCount="41.0"/>
+    <ScoreDistribution value="2" recordCount="0.0"/>
+</Node>
+                            </Node>
+                            <Node>
+<SimplePredicate field="sepal_length" operator="lessOrEqual" value="6.05"/>
+<Node score="2" recordCount="1">
+    <SimplePredicate field="petal_length" operator="lessOrEqual" value="5.05"/>
+    <ScoreDistribution value="0" recordCount="0.0"/>
+    <ScoreDistribution value="1" recordCount="0.0"/>
+    <ScoreDistribution value="2" recordCount="1.0"/>
+</Node>
+<Node score="1" recordCount="1">
+    <True/>
+    <ScoreDistribution value="0" recordCount="0.0"/>
+    <ScoreDistribution value="1" recordCount="1.0"/>
+    <ScoreDistribution value="2" recordCount="0.0"/>
+</Node>
+                            </Node>
+                            <Node score="2" recordCount="7">
+<SimplePredicate field="petal_width" operator="lessOrEqual" value="1.65"/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="0.0"/>
+<ScoreDistribution value="2" recordCount="7.0"/>
+                            </Node>
+                            <Node score="1" recordCount="1">
+<True/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="1.0"/>
+<ScoreDistribution value="2" recordCount="0.0"/>
+                            </Node>
+                        </Node>
+                        <Node score="2" recordCount="48">
+                            <True/>
+                            <ScoreDistribution value="0" recordCount="0.0"/>
+                            <ScoreDistribution value="1" recordCount="0.0"/>
+                            <ScoreDistribution value="2" recordCount="48.0"/>
+                        </Node>
+                    </Node>
+                </TreeModel>
+            </Segment>
+            <Segment id="7">
+                <True/>
+                <TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+                    <MiningSchema>
+                        <MiningField name="sepal_length"/>
+                        <MiningField name="sepal_width"/>
+                        <MiningField name="petal_length"/>
+                        <MiningField name="petal_width"/>
+                    </MiningSchema>
+                    <Node>
+                        <True/>
+                        <Node score="0" recordCount="55">
+                            <SimplePredicate field="petal_length" operator="lessOrEqual" value="2.45"/>
+                            <ScoreDistribution value="0" recordCount="55.0"/>
+                            <ScoreDistribution value="1" recordCount="0.0"/>
+                            <ScoreDistribution value="2" recordCount="0.0"/>
+                        </Node>
+                        <Node>
+                            <SimplePredicate field="petal_width" operator="lessOrEqual" value="1.55"/>
+                            <Node score="1" recordCount="29">
+<SimplePredicate field="sepal_length" operator="lessOrEqual" value="6.05"/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="29.0"/>
+<ScoreDistribution value="2" recordCount="0.0"/>
+                            </Node>
+                            <Node>
+<SimplePredicate field="sepal_width" operator="lessOrEqual" value="2.6500000000000004"/>
+<Node score="2" recordCount="3">
+    <SimplePredicate field="petal_width" operator="lessOrEqual" value="1.45"/>
+    <ScoreDistribution value="0" recordCount="0.0"/>
+    <ScoreDistribution value="1" recordCount="0.0"/>
+    <ScoreDistribution value="2" recordCount="3.0"/>
+</Node>
+<Node score="1" recordCount="1">
+    <True/>
+    <ScoreDistribution value="0" recordCount="0.0"/>
+    <ScoreDistribution value="1" recordCount="1.0"/>
+    <ScoreDistribution value="2" recordCount="0.0"/>
+</Node>
+                            </Node>
+                            <Node score="1" recordCount="12">
+<True/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="12.0"/>
+<ScoreDistribution value="2" recordCount="0.0"/>
+                            </Node>
+                        </Node>
+                        <Node>
+                            <SimplePredicate field="petal_width" operator="lessOrEqual" value="1.65"/>
+                            <Node score="1" recordCount="1">
+<SimplePredicate field="sepal_length" operator="lessOrEqual" value="6.05"/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="1.0"/>
+<ScoreDistribution value="2" recordCount="0.0"/>
+                            </Node>
+                            <Node score="2" recordCount="2">
+<True/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="0.0"/>
+<ScoreDistribution value="2" recordCount="2.0"/>
+                            </Node>
+                        </Node>
+                        <Node score="2" recordCount="45">
+                            <True/>
+                            <ScoreDistribution value="0" recordCount="0.0"/>
+                            <ScoreDistribution value="1" recordCount="0.0"/>
+                            <ScoreDistribution value="2" recordCount="45.0"/>
+                        </Node>
+                    </Node>
+                </TreeModel>
+            </Segment>
+            <Segment id="8">
+                <True/>
+                <TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+                    <MiningSchema>
+                        <MiningField name="sepal_length"/>
+                        <MiningField name="sepal_width"/>
+                        <MiningField name="petal_length"/>
+                        <MiningField name="petal_width"/>
+                    </MiningSchema>
+                    <Node>
+                        <True/>
+                        <Node score="0" recordCount="50">
+                            <SimplePredicate field="petal_length" operator="lessOrEqual" value="2.45"/>
+                            <ScoreDistribution value="0" recordCount="50.0"/>
+                            <ScoreDistribution value="1" recordCount="0.0"/>
+                            <ScoreDistribution value="2" recordCount="0.0"/>
+                        </Node>
+                        <Node>
+                            <SimplePredicate field="petal_width" operator="lessOrEqual" value="1.75"/>
+                            <Node score="1" recordCount="49">
+<SimplePredicate field="petal_length" operator="lessOrEqual" value="4.95"/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="49.0"/>
+<ScoreDistribution value="2" recordCount="0.0"/>
+                            </Node>
+                            <Node score="2" recordCount="4">
+<SimplePredicate field="sepal_width" operator="lessOrEqual" value="2.6500000000000004"/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="0.0"/>
+<ScoreDistribution value="2" recordCount="4.0"/>
+                            </Node>
+                            <Node>
+<SimplePredicate field="sepal_length" operator="lessOrEqual" value="6.75"/>
+<Node score="2" recordCount="1">
+    <SimplePredicate field="petal_width" operator="lessOrEqual" value="1.55"/>
+    <ScoreDistribution value="0" recordCount="0.0"/>
+    <ScoreDistribution value="1" recordCount="0.0"/>
+    <ScoreDistribution value="2" recordCount="1.0"/>
+</Node>
+<Node score="1" recordCount="2">
+    <True/>
+    <ScoreDistribution value="0" recordCount="0.0"/>
+    <ScoreDistribution value="1" recordCount="2.0"/>
+    <ScoreDistribution value="2" recordCount="0.0"/>
+</Node>
+                            </Node>
+                            <Node score="2" recordCount="2">
+<True/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="0.0"/>
+<ScoreDistribution value="2" recordCount="2.0"/>
+                            </Node>
+                        </Node>
+                        <Node>
+                            <SimplePredicate field="petal_length" operator="lessOrEqual" value="4.85"/>
+                            <Node score="2" recordCount="4">
+<SimplePredicate field="sepal_width" operator="lessOrEqual" value="3.05"/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="0.0"/>
+<ScoreDistribution value="2" recordCount="4.0"/>
+                            </Node>
+                            <Node score="1" recordCount="2">
+<True/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="2.0"/>
+<ScoreDistribution value="2" recordCount="0.0"/>
+                            </Node>
+                        </Node>
+                        <Node score="2" recordCount="47">
+                            <True/>
+                            <ScoreDistribution value="0" recordCount="0.0"/>
+                            <ScoreDistribution value="1" recordCount="0.0"/>
+                            <ScoreDistribution value="2" recordCount="47.0"/>
+                        </Node>
+                    </Node>
+                </TreeModel>
+            </Segment>
+            <Segment id="9">
+                <True/>
+                <TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+                    <MiningSchema>
+                        <MiningField name="sepal_length"/>
+                        <MiningField name="sepal_width"/>
+                        <MiningField name="petal_length"/>
+                        <MiningField name="petal_width"/>
+                    </MiningSchema>
+                    <Node>
+                        <True/>
+                        <Node score="0" recordCount="52">
+                            <SimplePredicate field="petal_length" operator="lessOrEqual" value="2.45"/>
+                            <ScoreDistribution value="0" recordCount="52.0"/>
+                            <ScoreDistribution value="1" recordCount="0.0"/>
+                            <ScoreDistribution value="2" recordCount="0.0"/>
+                        </Node>
+                        <Node>
+                            <SimplePredicate field="petal_width" operator="lessOrEqual" value="1.65"/>
+                            <Node score="1" recordCount="42">
+<SimplePredicate field="petal_length" operator="lessOrEqual" value="4.95"/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="42.0"/>
+<ScoreDistribution value="2" recordCount="0.0"/>
+                            </Node>
+                            <Node>
+<SimplePredicate field="petal_length" operator="lessOrEqual" value="5.15"/>
+<Node score="2" recordCount="1">
+    <SimplePredicate field="petal_width" operator="lessOrEqual" value="1.55"/>
+    <ScoreDistribution value="0" recordCount="0.0"/>
+    <ScoreDistribution value="1" recordCount="0.0"/>
+    <ScoreDistribution value="2" recordCount="1.0"/>
+</Node>
+<Node score="1" recordCount="1">
+    <True/>
+    <ScoreDistribution value="0" recordCount="0.0"/>
+    <ScoreDistribution value="1" recordCount="1.0"/>
+    <ScoreDistribution value="2" recordCount="0.0"/>
+</Node>
+                            </Node>
+                            <Node score="2" recordCount="2">
+<True/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="0.0"/>
+<ScoreDistribution value="2" recordCount="2.0"/>
+                            </Node>
+                        </Node>
+                        <Node>
+                            <SimplePredicate field="sepal_length" operator="lessOrEqual" value="5.95"/>
+                            <Node score="2" recordCount="6">
+<SimplePredicate field="sepal_width" operator="lessOrEqual" value="3.05"/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="0.0"/>
+<ScoreDistribution value="2" recordCount="6.0"/>
+                            </Node>
+                            <Node score="1" recordCount="3">
+<True/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="3.0"/>
+<ScoreDistribution value="2" recordCount="0.0"/>
+                            </Node>
+                        </Node>
+                        <Node>
+                            <SimplePredicate field="petal_length" operator="lessOrEqual" value="5.05"/>
+                            <Node score="2" recordCount="1">
+<SimplePredicate field="sepal_length" operator="lessOrEqual" value="6.15"/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="0.0"/>
+<ScoreDistribution value="2" recordCount="1.0"/>
+                            </Node>
+                            <Node score="1" recordCount="1">
+<True/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="1.0"/>
+<ScoreDistribution value="2" recordCount="0.0"/>
+                            </Node>
+                        </Node>
+                        <Node score="2" recordCount="37">
+                            <True/>
+                            <ScoreDistribution value="0" recordCount="0.0"/>
+                            <ScoreDistribution value="1" recordCount="0.0"/>
+                            <ScoreDistribution value="2" recordCount="37.0"/>
+                        </Node>
+                    </Node>
+                </TreeModel>
+            </Segment>
+            <Segment id="10">
+                <True/>
+                <TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+                    <MiningSchema>
+                        <MiningField name="sepal_length"/>
+                        <MiningField name="petal_length"/>
+                        <MiningField name="petal_width"/>
+                    </MiningSchema>
+                    <Node>
+                        <True/>
+                        <Node score="0" recordCount="51">
+                            <SimplePredicate field="petal_width" operator="lessOrEqual" value="0.45"/>
+                            <ScoreDistribution value="0" recordCount="51.0"/>
+                            <ScoreDistribution value="1" recordCount="0.0"/>
+                            <ScoreDistribution value="2" recordCount="0.0"/>
+                        </Node>
+                        <Node>
+                            <SimplePredicate field="petal_width" operator="lessOrEqual" value="1.65"/>
+                            <Node>
+<SimplePredicate field="sepal_length" operator="lessOrEqual" value="7.05"/>
+<Node score="1" recordCount="50">
+    <SimplePredicate field="petal_length" operator="lessOrEqual" value="4.95"/>
+    <ScoreDistribution value="0" recordCount="0.0"/>
+    <ScoreDistribution value="1" recordCount="50.0"/>
+    <ScoreDistribution value="2" recordCount="0.0"/>
+</Node>
+<Node score="2" recordCount="2">
+    <SimplePredicate field="petal_length" operator="lessOrEqual" value="5.05"/>
+    <ScoreDistribution value="0" recordCount="0.0"/>
+    <ScoreDistribution value="1" recordCount="0.0"/>
+    <ScoreDistribution value="2" recordCount="2.0"/>
+</Node>
+<Node score="1" recordCount="3">
+    <True/>
+    <ScoreDistribution value="0" recordCount="0.0"/>
+    <ScoreDistribution value="1" recordCount="3.0"/>
+    <ScoreDistribution value="2" recordCount="0.0"/>
+</Node>
+                            </Node>
+                            <Node score="2" recordCount="2">
+<True/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="0.0"/>
+<ScoreDistribution value="2" recordCount="2.0"/>
+                            </Node>
+                        </Node>
+                        <Node>
+                            <SimplePredicate field="petal_length" operator="lessOrEqual" value="4.85"/>
+                            <Node score="2" recordCount="2">
+<SimplePredicate field="sepal_length" operator="lessOrEqual" value="4.95"/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="0.0"/>
+<ScoreDistribution value="2" recordCount="2.0"/>
+                            </Node>
+                            <Node score="1" recordCount="2">
+<SimplePredicate field="sepal_length" operator="lessOrEqual" value="5.95"/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="2.0"/>
+<ScoreDistribution value="2" recordCount="0.0"/>
+                            </Node>
+                            <Node score="2" recordCount="2">
+<True/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="0.0"/>
+<ScoreDistribution value="2" recordCount="2.0"/>
+                            </Node>
+                        </Node>
+                        <Node score="2" recordCount="44">
+                            <True/>
+                            <ScoreDistribution value="0" recordCount="0.0"/>
+                            <ScoreDistribution value="1" recordCount="0.0"/>
+                            <ScoreDistribution value="2" recordCount="44.0"/>
+                        </Node>
+                    </Node>
+                </TreeModel>
+            </Segment>
+            <Segment id="11">
+                <True/>
+                <TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+                    <MiningSchema>
+                        <MiningField name="sepal_length"/>
+                        <MiningField name="sepal_width"/>
+                        <MiningField name="petal_length"/>
+                        <MiningField name="petal_width"/>
+                    </MiningSchema>
+                    <Node>
+                        <True/>
+                        <Node score="0" recordCount="55">
+                            <SimplePredicate field="petal_length" operator="lessOrEqual" value="2.45"/>
+                            <ScoreDistribution value="0" recordCount="55.0"/>
+                            <ScoreDistribution value="1" recordCount="0.0"/>
+                            <ScoreDistribution value="2" recordCount="0.0"/>
+                        </Node>
+                        <Node>
+                            <SimplePredicate field="sepal_length" operator="lessOrEqual" value="6.25"/>
+                            <Node>
+<SimplePredicate field="sepal_length" operator="lessOrEqual" value="5.75"/>
+<Node>
+    <SimplePredicate field="petal_length" operator="lessOrEqual" value="4.55"/>
+    <Node score="1" recordCount="27">
+        <SimplePredicate field="petal_width" operator="lessOrEqual" value="1.55"/>
+        <ScoreDistribution value="0" recordCount="0.0"/>
+        <ScoreDistribution value="1" recordCount="27.0"/>
+        <ScoreDistribution value="2" recordCount="0.0"/>
+    </Node>
+    <Node score="2" recordCount="1">
+        <True/>
+        <ScoreDistribution value="0" recordCount="0.0"/>
+        <ScoreDistribution value="1" recordCount="0.0"/>
+        <ScoreDistribution value="2" recordCount="1.0"/>
+    </Node>
+</Node>
+<Node score="2" recordCount="3">
+    <True/>
+    <ScoreDistribution value="0" recordCount="0.0"/>
+    <ScoreDistribution value="1" recordCount="0.0"/>
+    <ScoreDistribution value="2" recordCount="3.0"/>
+</Node>
+                            </Node>
+                            <Node>
+<SimplePredicate field="sepal_width" operator="lessOrEqual" value="2.8499999999999996"/>
+<Node score="1" recordCount="4">
+    <SimplePredicate field="petal_width" operator="lessOrEqual" value="1.35"/>
+    <ScoreDistribution value="0" recordCount="0.0"/>
+    <ScoreDistribution value="1" recordCount="4.0"/>
+    <ScoreDistribution value="2" recordCount="0.0"/>
+</Node>
+<Node score="2" recordCount="6">
+    <SimplePredicate field="sepal_width" operator="lessOrEqual" value="2.6500000000000004"/>
+    <ScoreDistribution value="0" recordCount="0.0"/>
+    <ScoreDistribution value="1" recordCount="0.0"/>
+    <ScoreDistribution value="2" recordCount="6.0"/>
+</Node>
+<Node score="1" recordCount="1">
+    <SimplePredicate field="sepal_width" operator="lessOrEqual" value="2.75"/>
+    <ScoreDistribution value="0" recordCount="0.0"/>
+    <ScoreDistribution value="1" recordCount="1.0"/>
+    <ScoreDistribution value="2" recordCount="0.0"/>
+</Node>
+<Node score="2" recordCount="3">
+    <True/>
+    <ScoreDistribution value="0" recordCount="0.0"/>
+    <ScoreDistribution value="1" recordCount="0.0"/>
+    <ScoreDistribution value="2" recordCount="3.0"/>
+</Node>
+                            </Node>
+                            <Node score="1" recordCount="4">
+<SimplePredicate field="sepal_width" operator="lessOrEqual" value="2.95"/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="4.0"/>
+<ScoreDistribution value="2" recordCount="0.0"/>
+                            </Node>
+                            <Node score="1" recordCount="3">
+<SimplePredicate field="petal_width" operator="lessOrEqual" value="1.55"/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="3.0"/>
+<ScoreDistribution value="2" recordCount="0.0"/>
+                            </Node>
+                            <Node>
+<SimplePredicate field="sepal_length" operator="lessOrEqual" value="5.95"/>
+<Node score="1" recordCount="3">
+    <SimplePredicate field="petal_length" operator="lessOrEqual" value="4.85"/>
+    <ScoreDistribution value="0" recordCount="0.0"/>
+    <ScoreDistribution value="1" recordCount="3.0"/>
+    <ScoreDistribution value="2" recordCount="0.0"/>
+</Node>
+<Node score="2" recordCount="1">
+    <True/>
+    <ScoreDistribution value="0" recordCount="0.0"/>
+    <ScoreDistribution value="1" recordCount="0.0"/>
+    <ScoreDistribution value="2" recordCount="1.0"/>
+</Node>
+                            </Node>
+                            <Node score="2" recordCount="2">
+<True/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="0.0"/>
+<ScoreDistribution value="2" recordCount="2.0"/>
+                            </Node>
+                        </Node>
+                        <Node>
+                            <SimplePredicate field="sepal_length" operator="lessOrEqual" value="7.05"/>
+                            <Node score="1" recordCount="11">
+<SimplePredicate field="petal_length" operator="lessOrEqual" value="4.85"/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="11.0"/>
+<ScoreDistribution value="2" recordCount="0.0"/>
+                            </Node>
+                            <Node score="2" recordCount="27">
+<True/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="1.0"/>
+<ScoreDistribution value="2" recordCount="26.0"/>
+                            </Node>
+                        </Node>
+                        <Node score="2" recordCount="16">
+                            <True/>
+                            <ScoreDistribution value="0" recordCount="0.0"/>
+                            <ScoreDistribution value="1" recordCount="0.0"/>
+                            <ScoreDistribution value="2" recordCount="16.0"/>
+                        </Node>
+                    </Node>
+                </TreeModel>
+            </Segment>
+            <Segment id="12">
+                <True/>
+                <TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+                    <MiningSchema>
+                        <MiningField name="sepal_length"/>
+                        <MiningField name="sepal_width"/>
+                        <MiningField name="petal_length"/>
+                        <MiningField name="petal_width"/>
+                    </MiningSchema>
+                    <Node>
+                        <True/>
+                        <Node score="0" recordCount="57">
+                            <SimplePredicate field="petal_width" operator="lessOrEqual" value="0.8"/>
+                            <ScoreDistribution value="0" recordCount="57.0"/>
+                            <ScoreDistribution value="1" recordCount="0.0"/>
+                            <ScoreDistribution value="2" recordCount="0.0"/>
+                        </Node>
+                        <Node>
+                            <SimplePredicate field="sepal_length" operator="lessOrEqual" value="6.25"/>
+                            <Node score="1" recordCount="52">
+<SimplePredicate field="petal_length" operator="lessOrEqual" value="4.75"/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="52.0"/>
+<ScoreDistribution value="2" recordCount="0.0"/>
+                            </Node>
+                            <Node>
+<SimplePredicate field="sepal_width" operator="lessOrEqual" value="3.05"/>
+<Node>
+    <SimplePredicate field="petal_width" operator="lessOrEqual" value="1.65"/>
+    <Node score="2" recordCount="5">
+        <SimplePredicate field="petal_width" operator="lessOrEqual" value="1.55"/>
+        <ScoreDistribution value="0" recordCount="0.0"/>
+        <ScoreDistribution value="1" recordCount="0.0"/>
+        <ScoreDistribution value="2" recordCount="5.0"/>
+    </Node>
+    <Node score="1" recordCount="2">
+        <True/>
+        <ScoreDistribution value="0" recordCount="0.0"/>
+        <ScoreDistribution value="1" recordCount="2.0"/>
+        <ScoreDistribution value="2" recordCount="0.0"/>
+    </Node>
+</Node>
+<Node score="2" recordCount="12">
+    <True/>
+    <ScoreDistribution value="0" recordCount="0.0"/>
+    <ScoreDistribution value="1" recordCount="0.0"/>
+    <ScoreDistribution value="2" recordCount="12.0"/>
+</Node>
+                            </Node>
+                            <Node score="1" recordCount="1">
+<SimplePredicate field="petal_width" operator="lessOrEqual" value="1.85"/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="1.0"/>
+<ScoreDistribution value="2" recordCount="0.0"/>
+                            </Node>
+                            <Node score="2" recordCount="1">
+<True/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="0.0"/>
+<ScoreDistribution value="2" recordCount="1.0"/>
+                            </Node>
+                        </Node>
+                        <Node score="1" recordCount="11">
+                            <SimplePredicate field="petal_length" operator="lessOrEqual" value="4.95"/>
+                            <ScoreDistribution value="0" recordCount="0.0"/>
+                            <ScoreDistribution value="1" recordCount="11.0"/>
+                            <ScoreDistribution value="2" recordCount="0.0"/>
+                        </Node>
+                        <Node score="2" recordCount="45">
+                            <True/>
+                            <ScoreDistribution value="0" recordCount="0.0"/>
+                            <ScoreDistribution value="1" recordCount="0.0"/>
+                            <ScoreDistribution value="2" recordCount="45.0"/>
+                        </Node>
+                    </Node>
+                </TreeModel>
+            </Segment>
+            <Segment id="13">
+                <True/>
+                <TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+                    <MiningSchema>
+                        <MiningField name="sepal_length"/>
+                        <MiningField name="sepal_width"/>
+                        <MiningField name="petal_length"/>
+                        <MiningField name="petal_width"/>
+                    </MiningSchema>
+                    <Node>
+                        <True/>
+                        <Node score="0" recordCount="44">
+                            <SimplePredicate field="petal_width" operator="lessOrEqual" value="0.8"/>
+                            <ScoreDistribution value="0" recordCount="44.0"/>
+                            <ScoreDistribution value="1" recordCount="0.0"/>
+                            <ScoreDistribution value="2" recordCount="0.0"/>
+                        </Node>
+                        <Node>
+                            <SimplePredicate field="petal_width" operator="lessOrEqual" value="1.75"/>
+                            <Node>
+<SimplePredicate field="petal_length" operator="lessOrEqual" value="4.95"/>
+<Node>
+    <SimplePredicate field="sepal_width" operator="lessOrEqual" value="2.55"/>
+    <Node score="1" recordCount="12">
+        <SimplePredicate field="petal_width" operator="lessOrEqual" value="1.55"/>
+        <ScoreDistribution value="0" recordCount="0.0"/>
+        <ScoreDistribution value="1" recordCount="12.0"/>
+        <ScoreDistribution value="2" recordCount="0.0"/>
+    </Node>
+    <Node score="2" recordCount="1">
+        <True/>
+        <ScoreDistribution value="0" recordCount="0.0"/>
+        <ScoreDistribution value="1" recordCount="0.0"/>
+        <ScoreDistribution value="2" recordCount="1.0"/>
+    </Node>
+</Node>
+<Node score="1" recordCount="38">
+    <True/>
+    <ScoreDistribution value="0" recordCount="0.0"/>
+    <ScoreDistribution value="1" recordCount="38.0"/>
+    <ScoreDistribution value="2" recordCount="0.0"/>
+</Node>
+                            </Node>
+                            <Node score="2" recordCount="6">
+<SimplePredicate field="petal_width" operator="lessOrEqual" value="1.55"/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="0.0"/>
+<ScoreDistribution value="2" recordCount="6.0"/>
+                            </Node>
+                            <Node score="1" recordCount="3">
+<True/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="3.0"/>
+<ScoreDistribution value="2" recordCount="0.0"/>
+                            </Node>
+                        </Node>
+                        <Node>
+                            <SimplePredicate field="petal_length" operator="lessOrEqual" value="4.85"/>
+                            <Node score="1" recordCount="1">
+<SimplePredicate field="sepal_length" operator="lessOrEqual" value="5.95"/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="1.0"/>
+<ScoreDistribution value="2" recordCount="0.0"/>
+                            </Node>
+                            <Node score="2" recordCount="2">
+<True/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="0.0"/>
+<ScoreDistribution value="2" recordCount="2.0"/>
+                            </Node>
+                        </Node>
+                        <Node score="2" recordCount="40">
+                            <True/>
+                            <ScoreDistribution value="0" recordCount="0.0"/>
+                            <ScoreDistribution value="1" recordCount="0.0"/>
+                            <ScoreDistribution value="2" recordCount="40.0"/>
+                        </Node>
+                    </Node>
+                </TreeModel>
+            </Segment>
+            <Segment id="14">
+                <True/>
+                <TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+                    <MiningSchema>
+                        <MiningField name="sepal_length"/>
+                        <MiningField name="petal_length"/>
+                        <MiningField name="petal_width"/>
+                    </MiningSchema>
+                    <Node>
+                        <True/>
+                        <Node score="0" recordCount="59">
+                            <SimplePredicate field="petal_width" operator="lessOrEqual" value="0.8"/>
+                            <ScoreDistribution value="0" recordCount="59.0"/>
+                            <ScoreDistribution value="1" recordCount="0.0"/>
+                            <ScoreDistribution value="2" recordCount="0.0"/>
+                        </Node>
+                        <Node>
+                            <SimplePredicate field="sepal_length" operator="lessOrEqual" value="6.65"/>
+                            <Node>
+<SimplePredicate field="petal_width" operator="lessOrEqual" value="1.65"/>
+<Node score="1" recordCount="49">
+    <SimplePredicate field="petal_length" operator="lessOrEqual" value="4.95"/>
+    <ScoreDistribution value="0" recordCount="0.0"/>
+    <ScoreDistribution value="1" recordCount="49.0"/>
+    <ScoreDistribution value="2" recordCount="0.0"/>
+</Node>
+<Node score="2" recordCount="2">
+    <True/>
+    <ScoreDistribution value="0" recordCount="0.0"/>
+    <ScoreDistribution value="1" recordCount="0.0"/>
+    <ScoreDistribution value="2" recordCount="2.0"/>
+</Node>
+                            </Node>
+                            <Node>
+<SimplePredicate field="petal_length" operator="lessOrEqual" value="4.85"/>
+<Node score="2" recordCount="1">
+    <SimplePredicate field="sepal_length" operator="lessOrEqual" value="4.95"/>
+    <ScoreDistribution value="0" recordCount="0.0"/>
+    <ScoreDistribution value="1" recordCount="0.0"/>
+    <ScoreDistribution value="2" recordCount="1.0"/>
+</Node>
+<Node score="1" recordCount="1">
+    <SimplePredicate field="sepal_length" operator="lessOrEqual" value="5.95"/>
+    <ScoreDistribution value="0" recordCount="0.0"/>
+    <ScoreDistribution value="1" recordCount="1.0"/>
+    <ScoreDistribution value="2" recordCount="0.0"/>
+</Node>
+<Node score="2" recordCount="1">
+    <True/>
+    <ScoreDistribution value="0" recordCount="0.0"/>
+    <ScoreDistribution value="1" recordCount="0.0"/>
+    <ScoreDistribution value="2" recordCount="1.0"/>
+</Node>
+                            </Node>
+                            <Node score="2" recordCount="16">
+<True/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="0.0"/>
+<ScoreDistribution value="2" recordCount="16.0"/>
+                            </Node>
+                        </Node>
+                        <Node score="1" recordCount="3">
+                            <SimplePredicate field="petal_length" operator="lessOrEqual" value="5.05"/>
+                            <ScoreDistribution value="0" recordCount="0.0"/>
+                            <ScoreDistribution value="1" recordCount="3.0"/>
+                            <ScoreDistribution value="2" recordCount="0.0"/>
+                        </Node>
+                        <Node score="2" recordCount="23">
+                            <True/>
+                            <ScoreDistribution value="0" recordCount="0.0"/>
+                            <ScoreDistribution value="1" recordCount="0.0"/>
+                            <ScoreDistribution value="2" recordCount="23.0"/>
+                        </Node>
+                    </Node>
+                </TreeModel>
+            </Segment>
+            <Segment id="15">
+                <True/>
+                <TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+                    <MiningSchema>
+                        <MiningField name="petal_length"/>
+                        <MiningField name="petal_width"/>
+                    </MiningSchema>
+                    <Node>
+                        <True/>
+                        <Node score="0" recordCount="42">
+                            <SimplePredicate field="petal_width" operator="lessOrEqual" value="0.8"/>
+                            <ScoreDistribution value="0" recordCount="42.0"/>
+                            <ScoreDistribution value="1" recordCount="0.0"/>
+                            <ScoreDistribution value="2" recordCount="0.0"/>
+                        </Node>
+                        <Node>
+                            <SimplePredicate field="petal_length" operator="lessOrEqual" value="4.75"/>
+                            <Node score="1" recordCount="38">
+<SimplePredicate field="petal_width" operator="lessOrEqual" value="1.65"/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="38.0"/>
+<ScoreDistribution value="2" recordCount="0.0"/>
+                            </Node>
+                            <Node score="2" recordCount="1">
+<True/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="0.0"/>
+<ScoreDistribution value="2" recordCount="1.0"/>
+                            </Node>
+                        </Node>
+                        <Node>
+                            <SimplePredicate field="petal_width" operator="lessOrEqual" value="1.55"/>
+                            <Node score="1" recordCount="1">
+<SimplePredicate field="petal_length" operator="lessOrEqual" value="4.95"/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="1.0"/>
+<ScoreDistribution value="2" recordCount="0.0"/>
+                            </Node>
+                            <Node score="2" recordCount="5">
+<True/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="0.0"/>
+<ScoreDistribution value="2" recordCount="5.0"/>
+                            </Node>
+                        </Node>
+                        <Node score="2" recordCount="44">
+                            <True/>
+                            <ScoreDistribution value="0" recordCount="0.0"/>
+                            <ScoreDistribution value="1" recordCount="0.0"/>
+                            <ScoreDistribution value="2" recordCount="44.0"/>
+                        </Node>
+                    </Node>
+                </TreeModel>
+            </Segment>
+            <Segment id="16">
+                <True/>
+                <TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+                    <MiningSchema>
+                        <MiningField name="petal_length"/>
+                        <MiningField name="petal_width"/>
+                    </MiningSchema>
+                    <Node>
+                        <True/>
+                        <Node score="0" recordCount="49">
+                            <SimplePredicate field="petal_width" operator="lessOrEqual" value="0.55"/>
+                            <ScoreDistribution value="0" recordCount="49.0"/>
+                            <ScoreDistribution value="1" recordCount="0.0"/>
+                            <ScoreDistribution value="2" recordCount="0.0"/>
+                        </Node>
+                        <Node>
+                            <SimplePredicate field="petal_length" operator="lessOrEqual" value="4.95"/>
+                            <Node score="1" recordCount="36">
+<SimplePredicate field="petal_width" operator="lessOrEqual" value="1.65"/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="36.0"/>
+<ScoreDistribution value="2" recordCount="0.0"/>
+                            </Node>
+                            <Node score="2" recordCount="2">
+<True/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="0.0"/>
+<ScoreDistribution value="2" recordCount="2.0"/>
+                            </Node>
+                        </Node>
+                        <Node score="2" recordCount="38">
+                            <True/>
+                            <ScoreDistribution value="0" recordCount="0.0"/>
+                            <ScoreDistribution value="1" recordCount="0.0"/>
+                            <ScoreDistribution value="2" recordCount="38.0"/>
+                        </Node>
+                    </Node>
+                </TreeModel>
+            </Segment>
+            <Segment id="17">
+                <True/>
+                <TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+                    <MiningSchema>
+                        <MiningField name="sepal_width"/>
+                        <MiningField name="petal_length"/>
+                        <MiningField name="petal_width"/>
+                    </MiningSchema>
+                    <Node>
+                        <True/>
+                        <Node score="0" recordCount="54">
+                            <SimplePredicate field="petal_length" operator="lessOrEqual" value="2.45"/>
+                            <ScoreDistribution value="0" recordCount="54.0"/>
+                            <ScoreDistribution value="1" recordCount="0.0"/>
+                            <ScoreDistribution value="2" recordCount="0.0"/>
+                        </Node>
+                        <Node>
+                            <SimplePredicate field="petal_length" operator="lessOrEqual" value="4.95"/>
+                            <Node score="1" recordCount="46">
+<SimplePredicate field="petal_width" operator="lessOrEqual" value="1.55"/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="46.0"/>
+<ScoreDistribution value="2" recordCount="0.0"/>
+                            </Node>
+                            <Node score="2" recordCount="6">
+<SimplePredicate field="sepal_width" operator="lessOrEqual" value="2.8499999999999996"/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="0.0"/>
+<ScoreDistribution value="2" recordCount="6.0"/>
+                            </Node>
+                            <Node score="1" recordCount="3">
+<True/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="3.0"/>
+<ScoreDistribution value="2" recordCount="0.0"/>
+                            </Node>
+                        </Node>
+                        <Node>
+                            <SimplePredicate field="petal_width" operator="lessOrEqual" value="1.65"/>
+                            <Node score="2" recordCount="4">
+<SimplePredicate field="petal_width" operator="lessOrEqual" value="1.55"/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="0.0"/>
+<ScoreDistribution value="2" recordCount="4.0"/>
+                            </Node>
+                            <Node score="1" recordCount="1">
+<SimplePredicate field="petal_length" operator="lessOrEqual" value="5.15"/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="1.0"/>
+<ScoreDistribution value="2" recordCount="0.0"/>
+                            </Node>
+                            <Node score="2" recordCount="1">
+<True/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="0.0"/>
+<ScoreDistribution value="2" recordCount="1.0"/>
+                            </Node>
+                        </Node>
+                        <Node score="2" recordCount="45">
+                            <True/>
+                            <ScoreDistribution value="0" recordCount="0.0"/>
+                            <ScoreDistribution value="1" recordCount="0.0"/>
+                            <ScoreDistribution value="2" recordCount="45.0"/>
+                        </Node>
+                    </Node>
+                </TreeModel>
+            </Segment>
+            <Segment id="18">
+                <True/>
+                <TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+                    <MiningSchema>
+                        <MiningField name="sepal_length"/>
+                        <MiningField name="sepal_width"/>
+                        <MiningField name="petal_length"/>
+                        <MiningField name="petal_width"/>
+                    </MiningSchema>
+                    <Node>
+                        <True/>
+                        <Node score="0" recordCount="43">
+                            <SimplePredicate field="petal_length" operator="lessOrEqual" value="2.45"/>
+                            <ScoreDistribution value="0" recordCount="43.0"/>
+                            <ScoreDistribution value="1" recordCount="0.0"/>
+                            <ScoreDistribution value="2" recordCount="0.0"/>
+                        </Node>
+                        <Node>
+                            <SimplePredicate field="petal_length" operator="lessOrEqual" value="4.75"/>
+                            <Node score="1" recordCount="57">
+<SimplePredicate field="petal_width" operator="lessOrEqual" value="1.55"/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="57.0"/>
+<ScoreDistribution value="2" recordCount="0.0"/>
+                            </Node>
+                            <Node score="2" recordCount="1">
+<True/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="0.0"/>
+<ScoreDistribution value="2" recordCount="1.0"/>
+                            </Node>
+                        </Node>
+                        <Node>
+                            <SimplePredicate field="petal_width" operator="lessOrEqual" value="1.75"/>
+                            <Node score="1" recordCount="8">
+<SimplePredicate field="petal_length" operator="lessOrEqual" value="5.15"/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="8.0"/>
+<ScoreDistribution value="2" recordCount="0.0"/>
+                            </Node>
+                            <Node score="2" recordCount="2">
+<True/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="0.0"/>
+<ScoreDistribution value="2" recordCount="2.0"/>
+                            </Node>
+                        </Node>
+                        <Node>
+                            <SimplePredicate field="sepal_length" operator="lessOrEqual" value="5.95"/>
+                            <Node score="2" recordCount="6">
+<SimplePredicate field="sepal_width" operator="lessOrEqual" value="3.05"/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="0.0"/>
+<ScoreDistribution value="2" recordCount="6.0"/>
+                            </Node>
+                            <Node score="1" recordCount="1">
+<True/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="1.0"/>
+<ScoreDistribution value="2" recordCount="0.0"/>
+                            </Node>
+                        </Node>
+                        <Node score="2" recordCount="36">
+                            <True/>
+                            <ScoreDistribution value="0" recordCount="0.0"/>
+                            <ScoreDistribution value="1" recordCount="0.0"/>
+                            <ScoreDistribution value="2" recordCount="36.0"/>
+                        </Node>
+                    </Node>
+                </TreeModel>
+            </Segment>
+            <Segment id="19">
+                <True/>
+                <TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+                    <MiningSchema>
+                        <MiningField name="sepal_length"/>
+                        <MiningField name="sepal_width"/>
+                        <MiningField name="petal_length"/>
+                        <MiningField name="petal_width"/>
+                    </MiningSchema>
+                    <Node>
+                        <True/>
+                        <Node score="0" recordCount="53">
+                            <SimplePredicate field="petal_length" operator="lessOrEqual" value="2.45"/>
+                            <ScoreDistribution value="0" recordCount="53.0"/>
+                            <ScoreDistribution value="1" recordCount="0.0"/>
+                            <ScoreDistribution value="2" recordCount="0.0"/>
+                        </Node>
+                        <Node>
+                            <SimplePredicate field="petal_width" operator="lessOrEqual" value="1.75"/>
+                            <Node score="1" recordCount="47">
+<SimplePredicate field="petal_length" operator="lessOrEqual" value="5.05"/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="47.0"/>
+<ScoreDistribution value="2" recordCount="0.0"/>
+                            </Node>
+                            <Node score="1" recordCount="1">
+<SimplePredicate field="sepal_width" operator="lessOrEqual" value="2.75"/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="1.0"/>
+<ScoreDistribution value="2" recordCount="0.0"/>
+                            </Node>
+                            <Node score="2" recordCount="2">
+<True/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="0.0"/>
+<ScoreDistribution value="2" recordCount="2.0"/>
+                            </Node>
+                        </Node>
+                        <Node>
+                            <SimplePredicate field="petal_length" operator="lessOrEqual" value="4.85"/>
+                            <Node score="1" recordCount="1">
+<SimplePredicate field="sepal_length" operator="lessOrEqual" value="5.95"/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="1.0"/>
+<ScoreDistribution value="2" recordCount="0.0"/>
+                            </Node>
+                            <Node score="2" recordCount="1">
+<True/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="0.0"/>
+<ScoreDistribution value="2" recordCount="1.0"/>
+                            </Node>
+                        </Node>
+                        <Node score="2" recordCount="51">
+                            <True/>
+                            <ScoreDistribution value="0" recordCount="0.0"/>
+                            <ScoreDistribution value="1" recordCount="0.0"/>
+                            <ScoreDistribution value="2" recordCount="51.0"/>
+                        </Node>
+                    </Node>
+                </TreeModel>
+            </Segment>
+            <Segment id="20">
+                <True/>
+                <TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+                    <MiningSchema>
+                        <MiningField name="sepal_length"/>
+                        <MiningField name="petal_length"/>
+                        <MiningField name="petal_width"/>
+                    </MiningSchema>
+                    <Node>
+                        <True/>
+                        <Node score="0" recordCount="54">
+                            <SimplePredicate field="petal_width" operator="lessOrEqual" value="0.45"/>
+                            <ScoreDistribution value="0" recordCount="54.0"/>
+                            <ScoreDistribution value="1" recordCount="0.0"/>
+                            <ScoreDistribution value="2" recordCount="0.0"/>
+                        </Node>
+                        <Node>
+                            <SimplePredicate field="sepal_length" operator="lessOrEqual" value="7.05"/>
+                            <Node>
+<SimplePredicate field="petal_length" operator="lessOrEqual" value="4.75"/>
+<Node score="2" recordCount="1">
+    <SimplePredicate field="sepal_length" operator="lessOrEqual" value="4.95"/>
+    <ScoreDistribution value="0" recordCount="0.0"/>
+    <ScoreDistribution value="1" recordCount="0.0"/>
+    <ScoreDistribution value="2" recordCount="1.0"/>
+</Node>
+<Node score="1" recordCount="47">
+    <True/>
+    <ScoreDistribution value="0" recordCount="0.0"/>
+    <ScoreDistribution value="1" recordCount="47.0"/>
+    <ScoreDistribution value="2" recordCount="0.0"/>
+</Node>
+                            </Node>
+                            <Node>
+<SimplePredicate field="petal_width" operator="lessOrEqual" value="1.75"/>
+<Node score="1" recordCount="6">
+    <SimplePredicate field="petal_length" operator="lessOrEqual" value="4.95"/>
+    <ScoreDistribution value="0" recordCount="0.0"/>
+    <ScoreDistribution value="1" recordCount="6.0"/>
+    <ScoreDistribution value="2" recordCount="0.0"/>
+</Node>
+<Node score="2" recordCount="2">
+    <SimplePredicate field="petal_width" operator="lessOrEqual" value="1.55"/>
+    <ScoreDistribution value="0" recordCount="0.0"/>
+    <ScoreDistribution value="1" recordCount="0.0"/>
+    <ScoreDistribution value="2" recordCount="2.0"/>
+</Node>
+<Node score="1" recordCount="3">
+    <True/>
+    <ScoreDistribution value="0" recordCount="0.0"/>
+    <ScoreDistribution value="1" recordCount="3.0"/>
+    <ScoreDistribution value="2" recordCount="0.0"/>
+</Node>
+                            </Node>
+                            <Node score="2" recordCount="33">
+<True/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="0.0"/>
+<ScoreDistribution value="2" recordCount="33.0"/>
+                            </Node>
+                        </Node>
+                        <Node score="2" recordCount="10">
+                            <True/>
+                            <ScoreDistribution value="0" recordCount="0.0"/>
+                            <ScoreDistribution value="1" recordCount="0.0"/>
+                            <ScoreDistribution value="2" recordCount="10.0"/>
+                        </Node>
+                    </Node>
+                </TreeModel>
+            </Segment>
+            <Segment id="21">
+                <True/>
+                <TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+                    <MiningSchema>
+                        <MiningField name="sepal_width"/>
+                        <MiningField name="petal_length"/>
+                        <MiningField name="petal_width"/>
+                    </MiningSchema>
+                    <Node>
+                        <True/>
+                        <Node score="0" recordCount="48">
+                            <SimplePredicate field="petal_length" operator="lessOrEqual" value="2.45"/>
+                            <ScoreDistribution value="0" recordCount="48.0"/>
+                            <ScoreDistribution value="1" recordCount="0.0"/>
+                            <ScoreDistribution value="2" recordCount="0.0"/>
+                        </Node>
+                        <Node>
+                            <SimplePredicate field="petal_width" operator="lessOrEqual" value="1.65"/>
+                            <Node score="1" recordCount="32">
+<SimplePredicate field="petal_width" operator="lessOrEqual" value="1.35"/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="32.0"/>
+<ScoreDistribution value="2" recordCount="0.0"/>
+                            </Node>
+                            <Node score="1" recordCount="21">
+<SimplePredicate field="petal_length" operator="lessOrEqual" value="4.95"/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="21.0"/>
+<ScoreDistribution value="2" recordCount="0.0"/>
+                            </Node>
+                            <Node score="2" recordCount="4">
+<True/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="0.0"/>
+<ScoreDistribution value="2" recordCount="4.0"/>
+                            </Node>
+                        </Node>
+                        <Node score="2" recordCount="31">
+                            <SimplePredicate field="sepal_width" operator="lessOrEqual" value="3.1500000000000004"/>
+                            <ScoreDistribution value="0" recordCount="0.0"/>
+                            <ScoreDistribution value="1" recordCount="0.0"/>
+                            <ScoreDistribution value="2" recordCount="31.0"/>
+                        </Node>
+                        <Node score="1" recordCount="1">
+                            <SimplePredicate field="petal_width" operator="lessOrEqual" value="1.85"/>
+                            <ScoreDistribution value="0" recordCount="0.0"/>
+                            <ScoreDistribution value="1" recordCount="1.0"/>
+                            <ScoreDistribution value="2" recordCount="0.0"/>
+                        </Node>
+                        <Node score="2" recordCount="13">
+                            <True/>
+                            <ScoreDistribution value="0" recordCount="0.0"/>
+                            <ScoreDistribution value="1" recordCount="0.0"/>
+                            <ScoreDistribution value="2" recordCount="13.0"/>
+                        </Node>
+                    </Node>
+                </TreeModel>
+            </Segment>
+            <Segment id="22">
+                <True/>
+                <TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+                    <MiningSchema>
+                        <MiningField name="sepal_length"/>
+                        <MiningField name="petal_length"/>
+                        <MiningField name="petal_width"/>
+                    </MiningSchema>
+                    <Node>
+                        <True/>
+                        <Node score="0" recordCount="50">
+                            <SimplePredicate field="petal_length" operator="lessOrEqual" value="2.45"/>
+                            <ScoreDistribution value="0" recordCount="50.0"/>
+                            <ScoreDistribution value="1" recordCount="0.0"/>
+                            <ScoreDistribution value="2" recordCount="0.0"/>
+                        </Node>
+                        <Node>
+                            <SimplePredicate field="sepal_length" operator="lessOrEqual" value="6.15"/>
+                            <Node>
+<SimplePredicate field="petal_length" operator="lessOrEqual" value="4.75"/>
+<Node score="1" recordCount="38">
+    <SimplePredicate field="petal_width" operator="lessOrEqual" value="1.55"/>
+    <ScoreDistribution value="0" recordCount="0.0"/>
+    <ScoreDistribution value="1" recordCount="38.0"/>
+    <ScoreDistribution value="2" recordCount="0.0"/>
+</Node>
+<Node score="2" recordCount="1">
+    <True/>
+    <ScoreDistribution value="0" recordCount="0.0"/>
+    <ScoreDistribution value="1" recordCount="0.0"/>
+    <ScoreDistribution value="2" recordCount="1.0"/>
+</Node>
+                            </Node>
+                            <Node score="2" recordCount="11">
+<True/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="0.0"/>
+<ScoreDistribution value="2" recordCount="11.0"/>
+                            </Node>
+                        </Node>
+                        <Node score="1" recordCount="13">
+                            <SimplePredicate field="petal_width" operator="lessOrEqual" value="1.55"/>
+                            <ScoreDistribution value="0" recordCount="0.0"/>
+                            <ScoreDistribution value="1" recordCount="13.0"/>
+                            <ScoreDistribution value="2" recordCount="0.0"/>
+                        </Node>
+                        <Node score="2" recordCount="42">
+                            <True/>
+                            <ScoreDistribution value="0" recordCount="0.0"/>
+                            <ScoreDistribution value="1" recordCount="0.0"/>
+                            <ScoreDistribution value="2" recordCount="42.0"/>
+                        </Node>
+                    </Node>
+                </TreeModel>
+            </Segment>
+            <Segment id="23">
+                <True/>
+                <TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+                    <MiningSchema>
+                        <MiningField name="sepal_length"/>
+                        <MiningField name="sepal_width"/>
+                        <MiningField name="petal_length"/>
+                        <MiningField name="petal_width"/>
+                    </MiningSchema>
+                    <Node>
+                        <True/>
+                        <Node score="0" recordCount="41">
+                            <SimplePredicate field="petal_length" operator="lessOrEqual" value="2.45"/>
+                            <ScoreDistribution value="0" recordCount="41.0"/>
+                            <ScoreDistribution value="1" recordCount="0.0"/>
+                            <ScoreDistribution value="2" recordCount="0.0"/>
+                        </Node>
+                        <Node>
+                            <SimplePredicate field="petal_length" operator="lessOrEqual" value="4.95"/>
+                            <Node>
+<SimplePredicate field="petal_length" operator="lessOrEqual" value="4.75"/>
+<Node>
+    <SimplePredicate field="sepal_width" operator="lessOrEqual" value="2.55"/>
+    <Node score="1" recordCount="12">
+        <SimplePredicate field="petal_width" operator="lessOrEqual" value="1.35"/>
+        <ScoreDistribution value="0" recordCount="0.0"/>
+        <ScoreDistribution value="1" recordCount="12.0"/>
+        <ScoreDistribution value="2" recordCount="0.0"/>
+    </Node>
+    <Node score="2" recordCount="1">
+        <True/>
+        <ScoreDistribution value="0" recordCount="0.0"/>
+        <ScoreDistribution value="1" recordCount="0.0"/>
+        <ScoreDistribution value="2" recordCount="1.0"/>
+    </Node>
+</Node>
+<Node score="1" recordCount="35">
+    <True/>
+    <ScoreDistribution value="0" recordCount="0.0"/>
+    <ScoreDistribution value="1" recordCount="35.0"/>
+    <ScoreDistribution value="2" recordCount="0.0"/>
+</Node>
+                            </Node>
+                            <Node score="1" recordCount="4">
+<SimplePredicate field="petal_width" operator="lessOrEqual" value="1.55"/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="4.0"/>
+<ScoreDistribution value="2" recordCount="0.0"/>
+                            </Node>
+                            <Node>
+<SimplePredicate field="sepal_length" operator="lessOrEqual" value="5.95"/>
+<Node score="1" recordCount="2">
+    <SimplePredicate field="petal_width" operator="lessOrEqual" value="1.85"/>
+    <ScoreDistribution value="0" recordCount="0.0"/>
+    <ScoreDistribution value="1" recordCount="2.0"/>
+    <ScoreDistribution value="2" recordCount="0.0"/>
+</Node>
+<Node score="2" recordCount="1">
+    <True/>
+    <ScoreDistribution value="0" recordCount="0.0"/>
+    <ScoreDistribution value="1" recordCount="0.0"/>
+    <ScoreDistribution value="2" recordCount="1.0"/>
+</Node>
+                            </Node>
+                            <Node score="2" recordCount="3">
+<True/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="0.0"/>
+<ScoreDistribution value="2" recordCount="3.0"/>
+                            </Node>
+                        </Node>
+                        <Node>
+                            <SimplePredicate field="petal_width" operator="lessOrEqual" value="1.65"/>
+                            <Node>
+<SimplePredicate field="sepal_length" operator="lessOrEqual" value="6.05"/>
+<Node score="2" recordCount="2">
+    <SimplePredicate field="petal_length" operator="lessOrEqual" value="5.05"/>
+    <ScoreDistribution value="0" recordCount="0.0"/>
+    <ScoreDistribution value="1" recordCount="0.0"/>
+    <ScoreDistribution value="2" recordCount="2.0"/>
+</Node>
+<Node score="1" recordCount="1">
+    <True/>
+    <ScoreDistribution value="0" recordCount="0.0"/>
+    <ScoreDistribution value="1" recordCount="1.0"/>
+    <ScoreDistribution value="2" recordCount="0.0"/>
+</Node>
+                            </Node>
+                            <Node score="2" recordCount="5">
+<True/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="0.0"/>
+<ScoreDistribution value="2" recordCount="5.0"/>
+                            </Node>
+                        </Node>
+                        <Node score="2" recordCount="40">
+                            <True/>
+                            <ScoreDistribution value="0" recordCount="0.0"/>
+                            <ScoreDistribution value="1" recordCount="0.0"/>
+                            <ScoreDistribution value="2" recordCount="40.0"/>
+                        </Node>
+                    </Node>
+                </TreeModel>
+            </Segment>
+            <Segment id="24">
+                <True/>
+                <TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+                    <MiningSchema>
+                        <MiningField name="sepal_length"/>
+                        <MiningField name="sepal_width"/>
+                        <MiningField name="petal_length"/>
+                        <MiningField name="petal_width"/>
+                    </MiningSchema>
+                    <Node>
+                        <True/>
+                        <Node score="0" recordCount="50">
+                            <SimplePredicate field="petal_width" operator="lessOrEqual" value="0.55"/>
+                            <ScoreDistribution value="0" recordCount="50.0"/>
+                            <ScoreDistribution value="1" recordCount="0.0"/>
+                            <ScoreDistribution value="2" recordCount="0.0"/>
+                        </Node>
+                        <Node>
+                            <SimplePredicate field="petal_width" operator="lessOrEqual" value="1.75"/>
+                            <Node>
+<SimplePredicate field="sepal_width" operator="lessOrEqual" value="2.25"/>
+<Node score="1" recordCount="5">
+    <SimplePredicate field="petal_length" operator="lessOrEqual" value="4.55"/>
+    <ScoreDistribution value="0" recordCount="0.0"/>
+    <ScoreDistribution value="1" recordCount="5.0"/>
+    <ScoreDistribution value="2" recordCount="0.0"/>
+</Node>
+<Node score="2" recordCount="3">
+    <True/>
+    <ScoreDistribution value="0" recordCount="0.0"/>
+    <ScoreDistribution value="1" recordCount="0.0"/>
+    <ScoreDistribution value="2" recordCount="3.0"/>
+</Node>
+                            </Node>
+                            <Node score="1" recordCount="31">
+<SimplePredicate field="sepal_length" operator="lessOrEqual" value="6.05"/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="31.0"/>
+<ScoreDistribution value="2" recordCount="0.0"/>
+                            </Node>
+                            <Node score="1" recordCount="22">
+<SimplePredicate field="petal_length" operator="lessOrEqual" value="5.05"/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="22.0"/>
+<ScoreDistribution value="2" recordCount="0.0"/>
+                            </Node>
+                            <Node score="2" recordCount="1">
+<True/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="0.0"/>
+<ScoreDistribution value="2" recordCount="1.0"/>
+                            </Node>
+                        </Node>
+                        <Node>
+                            <SimplePredicate field="petal_length" operator="lessOrEqual" value="4.85"/>
+                            <Node score="1" recordCount="1">
+<SimplePredicate field="sepal_length" operator="lessOrEqual" value="5.95"/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="1.0"/>
+<ScoreDistribution value="2" recordCount="0.0"/>
+                            </Node>
+                            <Node score="2" recordCount="1">
+<True/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="0.0"/>
+<ScoreDistribution value="2" recordCount="1.0"/>
+                            </Node>
+                        </Node>
+                        <Node score="2" recordCount="35">
+                            <True/>
+                            <ScoreDistribution value="0" recordCount="0.0"/>
+                            <ScoreDistribution value="1" recordCount="0.0"/>
+                            <ScoreDistribution value="2" recordCount="35.0"/>
+                        </Node>
+                    </Node>
+                </TreeModel>
+            </Segment>
+            <Segment id="25">
+                <True/>
+                <TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+                    <MiningSchema>
+                        <MiningField name="sepal_length"/>
+                        <MiningField name="petal_length"/>
+                        <MiningField name="petal_width"/>
+                    </MiningSchema>
+                    <Node>
+                        <True/>
+                        <Node>
+                            <SimplePredicate field="sepal_length" operator="lessOrEqual" value="5.55"/>
+                            <Node score="0" recordCount="58">
+<SimplePredicate field="petal_width" operator="lessOrEqual" value="0.8"/>
+<ScoreDistribution value="0" recordCount="58.0"/>
+<ScoreDistribution value="1" recordCount="0.0"/>
+<ScoreDistribution value="2" recordCount="0.0"/>
+                            </Node>
+                            <Node score="1" recordCount="6">
+<SimplePredicate field="petal_length" operator="lessOrEqual" value="4.45"/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="6.0"/>
+<ScoreDistribution value="2" recordCount="0.0"/>
+                            </Node>
+                            <Node score="2" recordCount="2">
+<True/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="0.0"/>
+<ScoreDistribution value="2" recordCount="2.0"/>
+                            </Node>
+                        </Node>
+                        <Node>
+                            <SimplePredicate field="petal_width" operator="lessOrEqual" value="1.75"/>
+                            <Node score="0" recordCount="3">
+<SimplePredicate field="petal_length" operator="lessOrEqual" value="1.7999999999999998"/>
+<ScoreDistribution value="0" recordCount="3.0"/>
+<ScoreDistribution value="1" recordCount="0.0"/>
+<ScoreDistribution value="2" recordCount="0.0"/>
+                            </Node>
+                            <Node score="1" recordCount="40">
+<True/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="40.0"/>
+<ScoreDistribution value="2" recordCount="0.0"/>
+                            </Node>
+                        </Node>
+                        <Node score="1" recordCount="6">
+                            <SimplePredicate field="petal_length" operator="lessOrEqual" value="4.85"/>
+                            <ScoreDistribution value="0" recordCount="0.0"/>
+                            <ScoreDistribution value="1" recordCount="3.0"/>
+                            <ScoreDistribution value="2" recordCount="3.0"/>
+                        </Node>
+                        <Node score="2" recordCount="46">
+                            <True/>
+                            <ScoreDistribution value="0" recordCount="0.0"/>
+                            <ScoreDistribution value="1" recordCount="0.0"/>
+                            <ScoreDistribution value="2" recordCount="46.0"/>
+                        </Node>
+                    </Node>
+                </TreeModel>
+            </Segment>
+            <Segment id="26">
+                <True/>
+                <TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+                    <MiningSchema>
+                        <MiningField name="sepal_length"/>
+                        <MiningField name="sepal_width"/>
+                        <MiningField name="petal_length"/>
+                        <MiningField name="petal_width"/>
+                    </MiningSchema>
+                    <Node>
+                        <True/>
+                        <Node score="0" recordCount="49">
+                            <SimplePredicate field="petal_length" operator="lessOrEqual" value="2.45"/>
+                            <ScoreDistribution value="0" recordCount="49.0"/>
+                            <ScoreDistribution value="1" recordCount="0.0"/>
+                            <ScoreDistribution value="2" recordCount="0.0"/>
+                        </Node>
+                        <Node>
+                            <SimplePredicate field="sepal_length" operator="lessOrEqual" value="7.05"/>
+                            <Node>
+<SimplePredicate field="petal_length" operator="lessOrEqual" value="4.85"/>
+<Node score="1" recordCount="53">
+    <SimplePredicate field="petal_width" operator="lessOrEqual" value="1.65"/>
+    <ScoreDistribution value="0" recordCount="0.0"/>
+    <ScoreDistribution value="1" recordCount="53.0"/>
+    <ScoreDistribution value="2" recordCount="0.0"/>
+</Node>
+<Node score="2" recordCount="1">
+    <SimplePredicate field="sepal_length" operator="lessOrEqual" value="4.95"/>
+    <ScoreDistribution value="0" recordCount="0.0"/>
+    <ScoreDistribution value="1" recordCount="0.0"/>
+    <ScoreDistribution value="2" recordCount="1.0"/>
+</Node>
+<Node score="2" recordCount="1">
+    <SimplePredicate field="sepal_width" operator="lessOrEqual" value="3.05"/>
+    <ScoreDistribution value="0" recordCount="0.0"/>
+    <ScoreDistribution value="1" recordCount="0.0"/>
+    <ScoreDistribution value="2" recordCount="1.0"/>
+</Node>
+<Node score="1" recordCount="2">
+    <True/>
+    <ScoreDistribution value="0" recordCount="0.0"/>
+    <ScoreDistribution value="1" recordCount="2.0"/>
+    <ScoreDistribution value="2" recordCount="0.0"/>
+</Node>
+                            </Node>
+                            <Node>
+<SimplePredicate field="petal_width" operator="lessOrEqual" value="1.75"/>
+<Node score="1" recordCount="2">
+    <SimplePredicate field="petal_length" operator="lessOrEqual" value="4.95"/>
+    <ScoreDistribution value="0" recordCount="0.0"/>
+    <ScoreDistribution value="1" recordCount="2.0"/>
+    <ScoreDistribution value="2" recordCount="0.0"/>
+</Node>
+<Node score="2" recordCount="2">
+    <SimplePredicate field="petal_width" operator="lessOrEqual" value="1.55"/>
+    <ScoreDistribution value="0" recordCount="0.0"/>
+    <ScoreDistribution value="1" recordCount="0.0"/>
+    <ScoreDistribution value="2" recordCount="2.0"/>
+</Node>
+<Node score="1" recordCount="2">
+    <True/>
+    <ScoreDistribution value="0" recordCount="0.0"/>
+    <ScoreDistribution value="1" recordCount="2.0"/>
+    <ScoreDistribution value="2" recordCount="0.0"/>
+</Node>
+                            </Node>
+                            <Node score="2" recordCount="32">
+<True/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="0.0"/>
+<ScoreDistribution value="2" recordCount="32.0"/>
+                            </Node>
+                        </Node>
+                        <Node score="2" recordCount="9">
+                            <True/>
+                            <ScoreDistribution value="0" recordCount="0.0"/>
+                            <ScoreDistribution value="1" recordCount="0.0"/>
+                            <ScoreDistribution value="2" recordCount="9.0"/>
+                        </Node>
+                    </Node>
+                </TreeModel>
+            </Segment>
+            <Segment id="27">
+                <True/>
+                <TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+                    <MiningSchema>
+                        <MiningField name="sepal_length"/>
+                        <MiningField name="sepal_width"/>
+                        <MiningField name="petal_length"/>
+                        <MiningField name="petal_width"/>
+                    </MiningSchema>
+                    <Node>
+                        <True/>
+                        <Node score="0" recordCount="66">
+                            <SimplePredicate field="petal_width" operator="lessOrEqual" value="0.8"/>
+                            <ScoreDistribution value="0" recordCount="66.0"/>
+                            <ScoreDistribution value="1" recordCount="0.0"/>
+                            <ScoreDistribution value="2" recordCount="0.0"/>
+                        </Node>
+                        <Node>
+                            <SimplePredicate field="petal_width" operator="lessOrEqual" value="1.65"/>
+                            <Node score="1" recordCount="41">
+<SimplePredicate field="petal_width" operator="lessOrEqual" value="1.45"/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="41.0"/>
+<ScoreDistribution value="2" recordCount="0.0"/>
+                            </Node>
+                            <Node>
+<SimplePredicate field="sepal_length" operator="lessOrEqual" value="6.75"/>
+<Node>
+    <SimplePredicate field="sepal_width" operator="lessOrEqual" value="2.8499999999999996"/>
+    <Node score="1" recordCount="2">
+        <SimplePredicate field="sepal_width" operator="lessOrEqual" value="2.75"/>
+        <ScoreDistribution value="0" recordCount="0.0"/>
+        <ScoreDistribution value="1" recordCount="2.0"/>
+        <ScoreDistribution value="2" recordCount="0.0"/>
+    </Node>
+    <Node score="1" recordCount="2">
+        <SimplePredicate field="petal_length" operator="lessOrEqual" value="4.65"/>
+        <ScoreDistribution value="0" recordCount="0.0"/>
+        <ScoreDistribution value="1" recordCount="2.0"/>
+        <ScoreDistribution value="2" recordCount="0.0"/>
+    </Node>
+    <Node score="2" recordCount="2">
+        <True/>
+        <ScoreDistribution value="0" recordCount="0.0"/>
+        <ScoreDistribution value="1" recordCount="0.0"/>
+        <ScoreDistribution value="2" recordCount="2.0"/>
+    </Node>
+</Node>
+<Node score="1" recordCount="9">
+    <True/>
+    <ScoreDistribution value="0" recordCount="0.0"/>
+    <ScoreDistribution value="1" recordCount="9.0"/>
+    <ScoreDistribution value="2" recordCount="0.0"/>
+</Node>
+                            </Node>
+                            <Node score="2" recordCount="2">
+<True/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="0.0"/>
+<ScoreDistribution value="2" recordCount="2.0"/>
+                            </Node>
+                        </Node>
+                        <Node>
+                            <SimplePredicate field="petal_length" operator="lessOrEqual" value="4.85"/>
+                            <Node score="2" recordCount="1">
+<SimplePredicate field="petal_width" operator="lessOrEqual" value="1.75"/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="0.0"/>
+<ScoreDistribution value="2" recordCount="1.0"/>
+                            </Node>
+                            <Node score="1" recordCount="1">
+<True/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="1.0"/>
+<ScoreDistribution value="2" recordCount="0.0"/>
+                            </Node>
+                        </Node>
+                        <Node score="2" recordCount="38">
+                            <True/>
+                            <ScoreDistribution value="0" recordCount="0.0"/>
+                            <ScoreDistribution value="1" recordCount="0.0"/>
+                            <ScoreDistribution value="2" recordCount="38.0"/>
+                        </Node>
+                    </Node>
+                </TreeModel>
+            </Segment>
+            <Segment id="28">
+                <True/>
+                <TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+                    <MiningSchema>
+                        <MiningField name="sepal_length"/>
+                        <MiningField name="petal_length"/>
+                        <MiningField name="petal_width"/>
+                    </MiningSchema>
+                    <Node>
+                        <True/>
+                        <Node score="0" recordCount="50">
+                            <SimplePredicate field="petal_width" operator="lessOrEqual" value="0.45"/>
+                            <ScoreDistribution value="0" recordCount="50.0"/>
+                            <ScoreDistribution value="1" recordCount="0.0"/>
+                            <ScoreDistribution value="2" recordCount="0.0"/>
+                        </Node>
+                        <Node>
+                            <SimplePredicate field="petal_length" operator="lessOrEqual" value="4.75"/>
+                            <Node score="1" recordCount="46">
+<SimplePredicate field="petal_width" operator="lessOrEqual" value="1.65"/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="46.0"/>
+<ScoreDistribution value="2" recordCount="0.0"/>
+                            </Node>
+                            <Node score="2" recordCount="1">
+<True/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="0.0"/>
+<ScoreDistribution value="2" recordCount="1.0"/>
+                            </Node>
+                        </Node>
+                        <Node>
+                            <SimplePredicate field="petal_width" operator="lessOrEqual" value="1.75"/>
+                            <Node score="1" recordCount="2">
+<SimplePredicate field="petal_length" operator="lessOrEqual" value="4.95"/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="2.0"/>
+<ScoreDistribution value="2" recordCount="0.0"/>
+                            </Node>
+                            <Node score="2" recordCount="4">
+<SimplePredicate field="sepal_length" operator="lessOrEqual" value="6.35"/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="0.0"/>
+<ScoreDistribution value="2" recordCount="4.0"/>
+                            </Node>
+                            <Node score="2" recordCount="2">
+<SimplePredicate field="petal_width" operator="lessOrEqual" value="1.65"/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="0.0"/>
+<ScoreDistribution value="2" recordCount="2.0"/>
+                            </Node>
+                            <Node score="1" recordCount="1">
+<True/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="1.0"/>
+<ScoreDistribution value="2" recordCount="0.0"/>
+                            </Node>
+                        </Node>
+                        <Node score="2" recordCount="48">
+                            <True/>
+                            <ScoreDistribution value="0" recordCount="0.0"/>
+                            <ScoreDistribution value="1" recordCount="0.0"/>
+                            <ScoreDistribution value="2" recordCount="48.0"/>
+                        </Node>
+                    </Node>
+                </TreeModel>
+            </Segment>
+            <Segment id="29">
+                <True/>
+                <TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+                    <MiningSchema>
+                        <MiningField name="sepal_length"/>
+                        <MiningField name="sepal_width"/>
+                        <MiningField name="petal_length"/>
+                        <MiningField name="petal_width"/>
+                    </MiningSchema>
+                    <Node>
+                        <True/>
+                        <Node score="0" recordCount="49">
+                            <SimplePredicate field="petal_width" operator="lessOrEqual" value="0.8"/>
+                            <ScoreDistribution value="0" recordCount="49.0"/>
+                            <ScoreDistribution value="1" recordCount="0.0"/>
+                            <ScoreDistribution value="2" recordCount="0.0"/>
+                        </Node>
+                        <Node>
+                            <SimplePredicate field="petal_width" operator="lessOrEqual" value="1.75"/>
+                            <Node>
+<SimplePredicate field="petal_width" operator="lessOrEqual" value="1.55"/>
+<Node score="1" recordCount="52">
+    <SimplePredicate field="petal_length" operator="lessOrEqual" value="4.95"/>
+    <ScoreDistribution value="0" recordCount="0.0"/>
+    <ScoreDistribution value="1" recordCount="52.0"/>
+    <ScoreDistribution value="2" recordCount="0.0"/>
+</Node>
+<Node score="2" recordCount="1">
+    <True/>
+    <ScoreDistribution value="0" recordCount="0.0"/>
+    <ScoreDistribution value="1" recordCount="0.0"/>
+    <ScoreDistribution value="2" recordCount="1.0"/>
+</Node>
+                            </Node>
+                            <Node>
+<SimplePredicate field="sepal_width" operator="lessOrEqual" value="3.05"/>
+<Node score="2" recordCount="1">
+    <SimplePredicate field="sepal_length" operator="lessOrEqual" value="4.95"/>
+    <ScoreDistribution value="0" recordCount="0.0"/>
+    <ScoreDistribution value="1" recordCount="0.0"/>
+    <ScoreDistribution value="2" recordCount="1.0"/>
+</Node>
+<Node score="1" recordCount="1">
+    <SimplePredicate field="petal_length" operator="lessOrEqual" value="5.05"/>
+    <ScoreDistribution value="0" recordCount="0.0"/>
+    <ScoreDistribution value="1" recordCount="1.0"/>
+    <ScoreDistribution value="2" recordCount="0.0"/>
+</Node>
+<Node score="2" recordCount="1">
+    <True/>
+    <ScoreDistribution value="0" recordCount="0.0"/>
+    <ScoreDistribution value="1" recordCount="0.0"/>
+    <ScoreDistribution value="2" recordCount="1.0"/>
+</Node>
+                            </Node>
+                            <Node score="1" recordCount="2">
+<True/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="2.0"/>
+<ScoreDistribution value="2" recordCount="0.0"/>
+                            </Node>
+                        </Node>
+                        <Node>
+                            <SimplePredicate field="sepal_length" operator="lessOrEqual" value="5.95"/>
+                            <Node score="1" recordCount="1">
+<SimplePredicate field="petal_length" operator="lessOrEqual" value="4.85"/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="1.0"/>
+<ScoreDistribution value="2" recordCount="0.0"/>
+                            </Node>
+                            <Node score="2" recordCount="2">
+<True/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="0.0"/>
+<ScoreDistribution value="2" recordCount="2.0"/>
+                            </Node>
+                        </Node>
+                        <Node score="2" recordCount="45">
+                            <True/>
+                            <ScoreDistribution value="0" recordCount="0.0"/>
+                            <ScoreDistribution value="1" recordCount="0.0"/>
+                            <ScoreDistribution value="2" recordCount="45.0"/>
+                        </Node>
+                    </Node>
+                </TreeModel>
+            </Segment>
+            <Segment id="30">
+                <True/>
+                <TreeModel functionName="classification" missingValueStrategy="nullPrediction">
+                    <MiningSchema>
+                        <MiningField name="sepal_length"/>
+                        <MiningField name="petal_length"/>
+                        <MiningField name="petal_width"/>
+                    </MiningSchema>
+                    <Node>
+                        <True/>
+                        <Node score="0" recordCount="46">
+                            <SimplePredicate field="petal_length" operator="lessOrEqual" value="2.45"/>
+                            <ScoreDistribution value="0" recordCount="46.0"/>
+                            <ScoreDistribution value="1" recordCount="0.0"/>
+                            <ScoreDistribution value="2" recordCount="0.0"/>
+                        </Node>
+                        <Node>
+                            <SimplePredicate field="petal_length" operator="lessOrEqual" value="4.95"/>
+                            <Node score="1" recordCount="43">
+<SimplePredicate field="petal_width" operator="lessOrEqual" value="1.65"/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="43.0"/>
+<ScoreDistribution value="2" recordCount="0.0"/>
+                            </Node>
+                            <Node score="2" recordCount="3">
+<True/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="0.0"/>
+<ScoreDistribution value="2" recordCount="3.0"/>
+                            </Node>
+                        </Node>
+                        <Node>
+                            <SimplePredicate field="petal_width" operator="lessOrEqual" value="1.75"/>
+                            <Node>
+<SimplePredicate field="sepal_length" operator="lessOrEqual" value="6.05"/>
+<Node score="2" recordCount="1">
+    <SimplePredicate field="petal_length" operator="lessOrEqual" value="5.05"/>
+    <ScoreDistribution value="0" recordCount="0.0"/>
+    <ScoreDistribution value="1" recordCount="0.0"/>
+    <ScoreDistribution value="2" recordCount="1.0"/>
+</Node>
+<Node score="1" recordCount="2">
+    <True/>
+    <ScoreDistribution value="0" recordCount="0.0"/>
+    <ScoreDistribution value="1" recordCount="2.0"/>
+    <ScoreDistribution value="2" recordCount="0.0"/>
+</Node>
+                            </Node>
+                            <Node score="1" recordCount="1">
+<SimplePredicate field="petal_length" operator="lessOrEqual" value="5.05"/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="1.0"/>
+<ScoreDistribution value="2" recordCount="0.0"/>
+                            </Node>
+                            <Node score="2" recordCount="5">
+<True/>
+<ScoreDistribution value="0" recordCount="0.0"/>
+<ScoreDistribution value="1" recordCount="0.0"/>
+<ScoreDistribution value="2" recordCount="5.0"/>
+                            </Node>
+                        </Node>
+                        <Node score="2" recordCount="43">
+                            <True/>
+                            <ScoreDistribution value="0" recordCount="0.0"/>
+                            <ScoreDistribution value="1" recordCount="0.0"/>
+                            <ScoreDistribution value="2" recordCount="43.0"/>
+                        </Node>
+                    </Node>
+                </TreeModel>
+            </Segment>
+        </Segmentation>
+    </MiningModel>
+</PMML>
